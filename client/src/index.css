@@ -14,4 +14,51 @@ html {
 body {
   margin: 0;
   background: #f8f8ff;
+  color: #00040f;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Utilities */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Backgrounds */
+
+.bg-main {
+  background: #f8f8ff;
+}
+
+.bg-secondary {
+  background: #e7eff5;
+}
+
+.bg-light {
+  background: #053f82;
+}
+
+.bg-dark {
+  background: #011447;
+}
+
+/* Text colors */
+
+.text-primary {
+  color: #f8f8ff;
+}
+
+.text-secondary {
+  color: #053f82;
+}
+
+/* Padding */
+
+.px-1 {
+  padding: 0 10px;
+}
+
+.px-2 {
+  padding: 0 20px;
 }
