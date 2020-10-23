@@ -1,0 +1,26 @@
+.search-form {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.search-form input,
+.search-form button {
+  height: 35px;
+  background-color: #f8f8ff;
+  border: 2px solid #e7eff5;
+}
+
+.search-form input {
+  width: 100%;
+  border-radius: 5px 0 0 5px;
+  outline-color: #053f82;
+  outline-offset: -1px;
+}
+
+.search-form button {
+  padding: 0 10px;
+  border-left: 2px solid #053f82;
+  border-radius: 0 5px 5px 0;
+}

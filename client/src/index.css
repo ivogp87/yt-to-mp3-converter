@@ -1,6 +1,8 @@
 /* bring in normalize.css styles */
 @import-normalize;
 
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Open+Sans:wght@300;400;600;800&display=swap');
+
 /* Reset */
 
 * {
@@ -14,8 +16,47 @@ html {
 body {
   margin: 0;
   background: #f8f8ff;
-  color: #00040f;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #000105;
+  font-size: 1.6rem;
+  font-family: 'Cabin', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+  margin: 2rem 0;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 1rem 0;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+
+input,
+button {
+  font-family: 'Cabin', sans-serif;
+  color: #000105;
+}
+
+input {
+  font-size: 1.6rem;
+  padding: 5px 10px;
 }
 
 /* Utilities */
@@ -55,10 +96,27 @@ body {
 
 /* Padding */
 
-.px-1 {
+.padding-1 {
+  padding: 10px;
+}
+
+.padding-2 {
+  padding: 20px;
+}
+
+.padding-x-1 {
   padding: 0 10px;
 }
 
-.px-2 {
+.padding-x-2 {
   padding: 0 20px;
+}
+
+/* Buttons */
+
+.btn {
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  border: none;
 }
