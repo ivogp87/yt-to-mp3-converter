@@ -6,6 +6,8 @@
 /* Reset */
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -14,11 +16,16 @@ html {
 }
 
 body {
-  margin: 0;
-  background: #f8f8ff;
-  color: #000105;
   font-size: 1.6rem;
   font-family: 'Cabin', sans-serif;
+  background: #f8f8ff;
+  color: #000105;
+}
+
+a {
+  color: inherit;
+  background: none;
+  text-decoration: none;
 }
 
 h1,
