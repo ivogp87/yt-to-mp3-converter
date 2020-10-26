@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import './SearchForm.css';
+import './SearchBar.css';
+import { parseQueryString } from '../../helpers';
 
-const SearchForm = () => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Keep the searchTerm in sync with the url
+  const { search } = useLocation();
+  useEffect(() => {
+    // Check if there is search term in the query string and update the state
+    const queryString = parseQueryString(search);
+    if (queryString) setSearchTerm(queryString);
+  }, [search]);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -25,7 +34,7 @@ const SearchForm = () => {
   };
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
+    <form className="search-bar" onSubmit={handleSubmit}>
       <input onChange={handleChange} type="text" value={searchTerm} placeholder="Search here" />
       <button className="btn" type="submit">
         <FontAwesomeIcon icon={faSearch} size="lg" className="text-secondary" />
@@ -34,4 +43,4 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default SearchBar;

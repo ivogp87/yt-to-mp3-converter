@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { parseQueryString } from '../../helpers';
 import SearchResults from '../../components/SearchResults';
 
 const Search = ({ location: { search } }) => {
-  // Check if the query string have "?term=" and parse the search term
-  const haveTerm = search.includes('?term=');
-  const searchTerm = search.replace('?term=', '');
+  const searchTerm = parseQueryString(search);
 
   // No query string in the url
-  if (!haveTerm || searchTerm === '') {
+  if (!searchTerm) {
     return <div>Please enter search term</div>;
   }
 

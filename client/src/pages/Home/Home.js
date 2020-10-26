@@ -4,7 +4,11 @@ import SearchContainer from '../../components/SearchContainer';
 const Home = () => {
   return (
     <main>
-      <SearchContainer />
+      <section className="bg-dark">
+        <div className="container padding-2">
+          <SearchContainer />
+        </div>
+      </section>
       <section style={{ minHeight: '500px' }}>
         <h2>Just a temporary placeholder</h2>
       </section>

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faHome, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css';
 import logo from '../../images/logo.png';
-import SearchForm from '../SearchForm';
+import SearchBar from '../SearchBar';
 
 const Navbar = () => {
   // By default the search form (in the menu) is visible on desktop and tablets and hidden on smaller screens
@@ -49,7 +49,7 @@ const Navbar = () => {
             </button>
           </li>
           <li className={showSearch ? 'form display-block' : 'form'}>
-            <SearchForm />
+            <SearchBar />
           </li>
           {!showSearch && (
             <>

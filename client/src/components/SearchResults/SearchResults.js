@@ -14,6 +14,7 @@ const SearchResults = ({ searchTerm }) => {
       const data = await searchByKeyword(searchTerm);
       if (data instanceof Error) {
         setError(true);
+        setIsLoading(false);
       } else {
         setSearchResults(data.items);
         setIsLoading(false);
