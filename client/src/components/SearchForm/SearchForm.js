@@ -18,7 +18,7 @@ const SearchForm = () => {
     e.preventDefault();
 
     // Url encode the search term
-    const encodedTerm = encodeURI(searchTerm).replace(/%20/gi, '+');
+    const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/gi, '+');
 
     // Redirect to the search results
     push(`/search?term=${encodedTerm}`);
