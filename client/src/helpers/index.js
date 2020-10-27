@@ -8,3 +8,5 @@ export const parseQueryString = (queryString) => {
 
   return false;
 };
+
+export const placeholder = '';

@@ -13,7 +13,10 @@ const SearchBar = () => {
   useEffect(() => {
     // Check if there is search term in the query string and update the state
     const queryString = parseQueryString(search);
-    if (queryString) setSearchTerm(queryString);
+    if (queryString) {
+      const decodedTerm = decodeURIComponent(queryString).replace(/\+/gi, ' ');
+      setSearchTerm(decodedTerm);
+    }
   }, [search]);
 
   const handleChange = (e) => {

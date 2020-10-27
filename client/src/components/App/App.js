@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Home from '../../pages/Home';
 import Search from '../../pages/Search';
+import Download from '../../pages/Download';
 import Footer from '../Footer';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/search" component={Search} />
+          <Route exact path="/download/:videoId" component={Download} />
         </Switch>
         <Footer />
       </BrowserRouter>

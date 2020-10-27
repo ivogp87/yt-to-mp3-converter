@@ -1,0 +1,142 @@
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faThumbsUp,
+  faThumbsDown,
+  faUser,
+  faComment,
+  faEye,
+  faCalendarWeek,
+} from '@fortawesome/free-solid-svg-icons';
+import { getVideoById } from '../../apis/youTube';
+import './VideoPlayer.css';
+
+const VideoPlayer = ({ videoId, autoPlay }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [videoInfo, setVideoInfo] = useState({});
+
+  // Fetch the video info from YouTube
+  useEffect(() => {
+    const fetchVideoInfo = async () => {
+      const videoData = await getVideoById(videoId);
+
+      if (videoData instanceof Error) {
+        setError(true);
+        setIsLoading(false);
+      } else {
+        setVideoInfo(videoData.items[0]);
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideoInfo();
+  }, [videoId]);
+
+  const renderVideoTags = () => {
+    // Check if the array exists and if it has data
+    if (videoInfo.snippet.tags && videoInfo.snippet.tags.length) {
+      // Get only the first three tags if the array have more items
+      let tagsArray;
+      if (videoInfo.snippet.tags.length > 3) {
+        tagsArray = videoInfo.snippet.tags.slice(0, 3);
+      } else {
+        tagsArray = videoInfo.snippet.tags;
+      }
+
+      // Return the JSX
+      return tagsArray.map((tag) => {
+        const urlEncodedTag = encodeURIComponent(tag).replace(/%20/gi, '+');
+        return (
+          <Link key={tag} to={`/search?term=%23${urlEncodedTag}`}>
+            {tag}
+          </Link>
+        );
+      });
+    }
+
+    // No tags array or empty array?
+    return null;
+  };
+
+  // Loading
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  // Error
+  if (error) {
+    return <div>Something went wrong. Please try again.</div>;
+  }
+
+  // Return the video player and info if everything's OK
+  return (
+    <div className="video-player">
+      <div className="video-iframe">
+        <iframe
+          title={videoInfo.snippet.title}
+          width="100%"
+          height="auto"
+          src={`https://www.youtube-nocookie.com/embed/${videoInfo.id}?autoplay=${autoPlay}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+      <div className="video-info">
+        <div className="video-tags text-secondary">{renderVideoTags()}</div>
+        <h1 className="video-title">{videoInfo.snippet.title}</h1>
+        <div className="video-meta">
+          <div className="meta-text">
+            <span>
+              <FontAwesomeIcon icon={faEye} />
+              {videoInfo.statistics.viewCount}
+              &nbsp; views
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faCalendarWeek} />
+              {videoInfo.snippet.publishedAt}
+            </span>
+          </div>
+          <div className="meta-stats">
+            <span title="Likes">
+              <FontAwesomeIcon icon={faThumbsUp} />
+              {videoInfo.statistics.likeCount}
+            </span>
+            <span title="Dislikes">
+              <FontAwesomeIcon icon={faThumbsDown} />
+              {videoInfo.statistics.dislikeCount}
+            </span>
+            <span title="Comments">
+              <FontAwesomeIcon icon={faComment} />
+              {videoInfo.statistics.commentCount}
+            </span>
+          </div>
+        </div>
+        <a
+          className="channel-byline"
+          title={`Visit ${videoInfo.snippet.channelTitle}'s YouTube Channel`}
+          href={`https://www.youtube.com/channel/${videoInfo.snippet.channelId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={faUser} />
+          {videoInfo.snippet.channelTitle}
+        </a>
+      </div>
+    </div>
+  );
+};
+
+VideoPlayer.propTypes = {
+  videoId: PropTypes.string.isRequired,
+  autoPlay: PropTypes.oneOf([0, 1]),
+};
+
+VideoPlayer.defaultProps = {
+  autoPlay: 0,
+};
+
+export default VideoPlayer;

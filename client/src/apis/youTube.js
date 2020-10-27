@@ -18,3 +18,21 @@ export const searchByKeyword = async (keyword, maxResults = 20) => {
     return error;
   }
 };
+
+// Fetch YouTube video details by Id
+export const getVideoById = async (videoId) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
+    );
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    }
+
+    throw new Error('Request failed!');
+  } catch (error) {
+    return error;
+  }
+};
