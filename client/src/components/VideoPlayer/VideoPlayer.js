@@ -11,6 +11,7 @@ import {
   faCalendarWeek,
 } from '@fortawesome/free-solid-svg-icons';
 import { getVideoById } from '../../apis/youTube';
+import { formatNumber } from '../../helpers';
 import './VideoPlayer.css';
 
 const VideoPlayer = ({ videoId, autoPlay }) => {
@@ -70,8 +71,8 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
       const descriptionLines = videoInfo.snippet.description.split('\n');
       return (
         <div className="video-description padding-y-2">
-          {descriptionLines.map((textLine) => (
-            <p>{textLine}</p>
+          {descriptionLines.map((textLine, index) => (
+            <p key={index}>{textLine}</p>
           ))}
         </div>
       );
@@ -113,7 +114,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
           <div className="meta-text">
             <span>
               <FontAwesomeIcon icon={faEye} />
-              {videoInfo.statistics.viewCount}
+              {formatNumber(Number(videoInfo.statistics.viewCount))}
               &nbsp; views
             </span>
             <span>
@@ -124,15 +125,15 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
           <div className="meta-stats">
             <span title="Likes">
               <FontAwesomeIcon icon={faThumbsUp} />
-              {videoInfo.statistics.likeCount}
+              {formatNumber(Number(videoInfo.statistics.likeCount))}
             </span>
             <span title="Dislikes">
               <FontAwesomeIcon icon={faThumbsDown} />
-              {videoInfo.statistics.dislikeCount}
+              {formatNumber(Number(videoInfo.statistics.dislikeCount))}
             </span>
             <span title="Comments">
               <FontAwesomeIcon icon={faComment} />
-              {videoInfo.statistics.commentCount}
+              {formatNumber(Number(videoInfo.statistics.commentCount))}
             </span>
           </div>
         </div>
