@@ -10,7 +10,7 @@ const Download = ({
   return (
     <main className="download">
       <div className="container padding-2">
-        <VideoPlayer videoId={videoId} autoPlay={1} />
+        <VideoPlayer videoId={videoId} autoPlay />
       </div>
     </main>
   );

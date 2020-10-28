@@ -81,6 +81,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
           height="auto"
           src={`https://www.youtube-nocookie.com/embed/${videoInfo.id}?autoplay=${autoPlay}`}
           frameBorder="0"
+          autoPlay="1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
@@ -132,11 +133,11 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
 
 VideoPlayer.propTypes = {
   videoId: PropTypes.string.isRequired,
-  autoPlay: PropTypes.oneOf([0, 1]),
+  autoPlay: PropTypes.bool,
 };
 
 VideoPlayer.defaultProps = {
-  autoPlay: 0,
+  autoPlay: false,
 };
 
 export default VideoPlayer;
