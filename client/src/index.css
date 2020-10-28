@@ -123,6 +123,14 @@ input {
   padding: 0 20px;
 }
 
+.padding-y-1 {
+  padding: 10px 0;
+}
+
+.padding-y-2 {
+  padding: 20px 0;
+}
+
 /* Buttons */
 
 .btn {

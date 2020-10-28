@@ -78,3 +78,8 @@
 .channel-byline {
   font-weight: bold;
 }
+
+.video-description p {
+  font-size: 1.6rem;
+  margin: 0.5rem 0;
+}

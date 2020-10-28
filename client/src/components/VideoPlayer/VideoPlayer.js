@@ -35,6 +35,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
     fetchVideoInfo();
   }, [videoId]);
 
+  // Render the video tags/keywords
   const renderVideoTags = () => {
     // Check if the array exists and if it has data
     if (videoInfo.snippet.tags && videoInfo.snippet.tags.length) {
@@ -58,6 +59,25 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
     }
 
     // No tags array or empty array?
+    return null;
+  };
+
+  // Render the video description
+  const renderVideoDescription = () => {
+    // Check if the description is not empty
+    if (videoInfo.snippet.description.length) {
+      // Split the description on new line (\n)
+      const descriptionLines = videoInfo.snippet.description.split('\n');
+      return (
+        <div className="video-description padding-y-2">
+          {descriptionLines.map((textLine) => (
+            <p>{textLine}</p>
+          ))}
+        </div>
+      );
+    }
+
+    // Empty description?
     return null;
   };
 
@@ -126,6 +146,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
           <FontAwesomeIcon icon={faUser} />
           {videoInfo.snippet.channelTitle}
         </a>
+        {renderVideoDescription()}
       </div>
     </div>
   );
