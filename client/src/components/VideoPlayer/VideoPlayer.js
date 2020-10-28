@@ -11,7 +11,7 @@ import {
   faCalendarWeek,
 } from '@fortawesome/free-solid-svg-icons';
 import { getVideoById } from '../../apis/youTube';
-import { formatNumber } from '../../helpers';
+import { formatNumber, formatDate } from '../../helpers';
 import './VideoPlayer.css';
 
 const VideoPlayer = ({ videoId, autoPlay }) => {
@@ -119,7 +119,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
             </span>
             <span>
               <FontAwesomeIcon icon={faCalendarWeek} />
-              {videoInfo.snippet.publishedAt}
+              {formatDate(new Date(videoInfo.snippet.publishedAt))}
             </span>
           </div>
           <div className="meta-stats">

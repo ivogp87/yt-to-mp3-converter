@@ -44,3 +44,9 @@ export const formatNumber = (num) => {
   // Return the first item from the array and the numberSign
   return `${numArr[0]} ${numberSign}`;
 };
+
+// Format date - ex: Jun 30, 2020
+export const formatDate = (date) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleString('en-US', options);
+};
