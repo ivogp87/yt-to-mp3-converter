@@ -28,6 +28,9 @@ export const getVideoById = async (videoId) => {
 
     if (response.ok) {
       const jsonResponse = await response.json();
+
+      // Throw error if the items array is empty (YouTube sends empty array when the videoId is invalid)
+      if (!jsonResponse.items.length) throw new Error('Invalid YouTube video id');
       return jsonResponse;
     }
 
