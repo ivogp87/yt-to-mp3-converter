@@ -18,6 +18,7 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [videoInfo, setVideoInfo] = useState({});
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   // Fetch the video info from YouTube
   useEffect(() => {
@@ -54,21 +55,46 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
 
   // Render the video description
   const renderVideoDescription = () => {
-    // Check if the description is not empty
-    if (videoInfo.snippet.description.length) {
-      // Split the description on new line (\n)
-      const descriptionLines = videoInfo.snippet.description.split('\n');
-      return (
-        <div className="video-description padding-y-2">
-          {descriptionLines.map((textLine, index) => (
-            <p key={index}>{textLine}</p>
-          ))}
-        </div>
-      );
-    }
+    // Empty description
+    if (!videoInfo.snippet.description.length) return null;
 
-    // Empty description?
-    return null;
+    // Render the description
+
+    // Split the description on new line (\n)
+    const descriptionLines = videoInfo.snippet.description.split('\n');
+
+    // Show only 3 lines from the description by default
+    const itemsToShow = showFullDescription ? descriptionLines.length : 3;
+
+    // Show more/less button
+    const renderShowMoreLessButton = () => {
+      // Don't render the button if there are less than 3 items
+      if (descriptionLines.length < 3) return null;
+
+      const buttonText = showFullDescription ? 'Show Less' : 'Show More';
+      // render the button
+      return (
+        <button
+          onMouseDown={(e) => {
+            e.preventDefault();
+            setShowFullDescription(!showFullDescription);
+          }}
+          className="btn"
+          type="button"
+        >
+          {buttonText}
+        </button>
+      );
+    };
+
+    return (
+      <div className="video-description padding-y-2">
+        {descriptionLines.slice(0, itemsToShow).map((textLine, index) => (
+          <p key={index}>{textLine}</p>
+        ))}
+        {renderShowMoreLessButton()}
+      </div>
+    );
   };
 
   // Loading
