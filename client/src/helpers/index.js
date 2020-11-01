@@ -12,16 +12,19 @@ export const parseQueryString = (queryString) => {
 // Formats a numbers bigger than 999 like this: 1000 -> 1k; 150 000 -> 150K, etc
 export const formatNumber = (num) => {
   // The input is not a number
-  if (Number.isNaN(num)) return '0';
+  if (Number.isNaN(num)) return num;
 
   // Numbers less than 1000 - return just the number as a string
   if (num < 1000) return num.toString();
 
   // If the number is equal to or bigger than 1000:
+
   // Format the number
   const formattedNum = num.toLocaleString('en-US');
+
   // Convert the formatted number into array
   const numArr = formattedNum.split(',');
+
   // Determine what sign to put after the number (K, M, B, T)
   let numberSign;
   switch (numArr.length) {
@@ -41,8 +44,11 @@ export const formatNumber = (num) => {
       numberSign = '';
   }
 
-  // Return the first item from the array and the numberSign
-  return `${numArr[0]} ${numberSign}`;
+  // Show fractional part only for numbers bigger than 1M
+  const decimalPart = num > 1000000 && numArr[1].charAt(0) !== '0' ? `.${numArr[1].charAt(0)}` : '';
+
+  // Return the formatted number
+  return `${numArr[0] + decimalPart} ${numberSign}`;
 };
 
 // Format date - ex: Jun 30, 2020

@@ -38,29 +38,18 @@ const VideoPlayer = ({ videoId, autoPlay }) => {
 
   // Render the video tags/keywords
   const renderVideoTags = () => {
-    // Check if the array exists and if it has data
-    if (videoInfo.snippet.tags && videoInfo.snippet.tags.length) {
-      // Get only the first three tags if the array have more items
-      let tagsArray;
-      if (videoInfo.snippet.tags.length > 3) {
-        tagsArray = videoInfo.snippet.tags.slice(0, 3);
-      } else {
-        tagsArray = videoInfo.snippet.tags;
-      }
+    // Return null if there are no tags (empty array)
+    if (!videoInfo.snippet.tags.length) return null;
 
-      // Return the JSX
-      return tagsArray.map((tag) => {
-        const urlEncodedTag = encodeURIComponent(tag).replace(/%20/gi, '+');
-        return (
-          <Link key={tag} to={`/search?term=%23${urlEncodedTag}`}>
-            {tag}
-          </Link>
-        );
-      });
-    }
-
-    // No tags array or empty array?
-    return null;
+    // Render only the firs three tags
+    return videoInfo.snippet.tags.slice(0, 3).map((tag) => {
+      const urlEncodedTag = encodeURIComponent(tag).replace(/%20/gi, '+');
+      return (
+        <Link key={tag} to={`/search?term=%23${urlEncodedTag}`}>
+          {tag}
+        </Link>
+      );
+    });
   };
 
   // Render the video description
