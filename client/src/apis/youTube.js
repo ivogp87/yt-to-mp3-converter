@@ -31,6 +31,26 @@ export const getVideoById = async (videoId) => {
 
       // Throw error if the items array is empty (YouTube sends empty array when the videoId is invalid)
       if (!jsonResponse.items.length) throw new Error('Invalid YouTube video id');
+
+      // return the response
+      return jsonResponse;
+    }
+
+    throw new Error('Request failed!');
+  } catch (error) {
+    return error;
+  }
+};
+
+// Fetch popular videos
+export const getPopularVideos = async (videoCategoryId = 10, maxResults = 20) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&videoCategoryId=${videoCategoryId}&maxResults=${maxResults}&key=${API_KEY}`
+    );
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
       return jsonResponse;
     }
 

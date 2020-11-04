@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchContainer from '../../components/SearchContainer';
+import PopularVideos from '../../components/PopularVideos';
 
 const Home = () => {
   return (
@@ -9,8 +10,9 @@ const Home = () => {
           <SearchContainer />
         </div>
       </section>
-      <section style={{ minHeight: '500px' }}>
-        <h2>Just a temporary placeholder</h2>
+      <section className="container padding-2">
+        <h2>Popular Music Videos</h2>
+        <PopularVideos />
       </section>
     </main>
   );
