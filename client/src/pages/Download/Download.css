@@ -1,0 +1,23 @@
+.video-container {
+  flex: 70%;
+}
+
+.download-container {
+  flex: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+  .video-container,
+  .download-container {
+    flex: 100%;
+  }
+
+  .download-container {
+    align-items: flex-start;
+    padding-left: 0;
+  }
+}

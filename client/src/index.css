@@ -143,8 +143,11 @@ input {
 /* Buttons */
 
 .btn {
+  font-size: 1.6rem;
+  padding: 10px;
   cursor: pointer;
   text-decoration: none;
   outline: none;
   border: none;
+  border-radius: 5px;
 }

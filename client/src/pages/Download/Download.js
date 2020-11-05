@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Download.css';
 import VideoPlayer from '../../components/VideoPlayer';
+import DownloadMp3 from '../../components/DownloadMp3';
 
 const Download = ({
   match: {
@@ -10,7 +12,14 @@ const Download = ({
   return (
     <main className="download">
       <div className="container padding-2">
-        <VideoPlayer videoId={videoId} autoPlay />
+        <div className="row">
+          <div className="video-container">
+            <VideoPlayer videoId={videoId} autoPlay />
+          </div>
+          <div className="download-container">
+            <DownloadMp3 videoId={videoId} />
+          </div>
+        </div>
       </div>
     </main>
   );
