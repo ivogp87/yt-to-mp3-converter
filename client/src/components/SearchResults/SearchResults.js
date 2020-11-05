@@ -44,8 +44,8 @@ const SearchResults = ({ searchTerm }) => {
             title={searchResult.snippet.title}
             thumbnail={searchResult.snippet.thumbnails.medium.url}
             description={searchResult.snippet.description}
-            channelId={searchResult.snippet.channelId}
             channelTitle={searchResult.snippet.channelTitle}
+            publishedAt={searchResult.snippet.publishedAt}
           />
         );
       })}

@@ -5,7 +5,7 @@ const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 export const searchByKeyword = async (keyword, maxResults = 20) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/search?part=snippet&maxResults=${maxResults}&q=${keyword}&type=video&key=${API_KEY}`
+      `${BASE_URL}/search?part=snippet&videoEmbeddable=true&eventType=completed&maxResults=${maxResults}&q=${keyword}&type=video&key=${API_KEY}`
     );
 
     if (response.ok) {

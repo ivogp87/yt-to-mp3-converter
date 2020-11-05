@@ -1,4 +1,4 @@
-// Parse the search term from the url. Returns false if there's no ?term= or the value is empty
+// Parse the search term from the url. Returns false if there's no term param or the value is empty
 export const parseQueryString = (queryString) => {
   const haveTerm = queryString.includes('?term=');
   if (haveTerm) {
@@ -25,7 +25,7 @@ export const formatNumber = (num) => {
   // Convert the formatted number into array
   const numArr = formattedNum.split(',');
 
-  // Determine what sign to put after the number (K, M, B, T)
+  // Determine what sign to put after the number (K, M, B)
   let numberSign;
   switch (numArr.length) {
     case 2:
@@ -36,9 +36,6 @@ export const formatNumber = (num) => {
       break;
     case 4:
       numberSign = 'B';
-      break;
-    case 5:
-      numberSign = 'T';
       break;
     default:
       numberSign = '';
@@ -55,4 +52,16 @@ export const formatNumber = (num) => {
 export const formatDate = (date) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleString('en-US', options);
+};
+
+// Decode HTML entities
+export const decodeHtmlEntities = (string) => {
+  const map = {
+    '&amp;': '&',
+    '&quot;': '"',
+    '&#39;': "'",
+    '&#96;': '`',
+  };
+
+  return string.replace(/&amp;|&quot;|&#39;|&#96;/gi, (match) => map[match]);
 };
