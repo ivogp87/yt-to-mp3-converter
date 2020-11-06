@@ -40,11 +40,11 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
           <VideoPreview
             key={video.id}
             id={video.id}
-            publishedAt={video.snippet.publishedAt}
             title={video.snippet.title}
-            channelTitle={video.snippet.channelTitle}
             thumbnail={video.snippet.thumbnails.medium.url}
-            views={video.statistics.viewCount}
+            channelTitle={video.snippet.channelTitle}
+            publishTime={video.snippet.publishedAt}
+            videoViews={video.statistics.viewCount}
           />
         );
       })}

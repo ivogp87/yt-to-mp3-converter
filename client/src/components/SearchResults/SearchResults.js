@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { searchByKeyword } from '../../apis/youTube';
-import SearchResult from '../SearchResult';
+import VideoPreview from '../VideoPreview';
 
 const SearchResults = ({ searchTerm }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,14 +38,14 @@ const SearchResults = ({ searchTerm }) => {
     <div className="search-results">
       {searchResults.map((searchResult) => {
         return (
-          <SearchResult
+          <VideoPreview
             key={searchResult.id.videoId}
             id={searchResult.id.videoId}
             title={searchResult.snippet.title}
             thumbnail={searchResult.snippet.thumbnails.medium.url}
             description={searchResult.snippet.description}
             channelTitle={searchResult.snippet.channelTitle}
-            publishedAt={searchResult.snippet.publishedAt}
+            publishTime={searchResult.snippet.publishTime}
           />
         );
       })}
