@@ -57,6 +57,10 @@
   word-break: break-word; /* Some links in the description are very long and cause issues on mobile screens */
 }
 
+.video-info .description-text a {
+  color: #053f82;
+}
+
 /* Show more button */
 
 .video-info .show-description-btn {

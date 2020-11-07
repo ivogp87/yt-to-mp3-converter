@@ -10,6 +10,7 @@ import {
   faEye,
   faCalendarWeek,
 } from '@fortawesome/free-solid-svg-icons';
+import Linkify from 'react-linkify';
 import './VideoInfo.css';
 import { formatNumber, formatDate } from '../../helpers';
 import { getVideoById } from '../../apis/youTube';
@@ -53,6 +54,28 @@ const VideoInfo = ({ videoId }) => {
     });
   };
 
+  // Render show more/less button
+  const renderShowMoreBtn = (descriptionItems) => {
+    // Don't render the button if there are less than 3 items
+    if (descriptionItems.length <= 3) return null;
+
+    // render the button
+    const buttonText = showFullDescription ? 'Show Less' : 'Show More';
+
+    return (
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          setShowFullDescription(!showFullDescription);
+        }}
+        className="btn show-description-btn"
+        type="button"
+      >
+        {buttonText}
+      </button>
+    );
+  };
+
   // Render the video description
   const renderVideoDescription = () => {
     // Empty description
@@ -61,42 +84,29 @@ const VideoInfo = ({ videoId }) => {
     // Render the description
 
     // Split the description on new line (\n)
-    const descriptionLines = videoInfo.snippet.description.split('\n');
+    const descriptionItems = videoInfo.snippet.description.split('\n');
 
     // Show only 3 lines from the description by default
-    const itemsToShow = showFullDescription ? descriptionLines.length : 3;
+    const itemsToShow = showFullDescription ? descriptionItems.length : 3;
 
-    // Show more/less button
-    const renderShowMoreLessButton = () => {
-      // Don't render the button if there are less than 3 items
-      if (descriptionLines.length <= 3) return null;
-
-      // render the button
-      const buttonText = showFullDescription ? 'Show Less' : 'Show More';
-
+    // Linkify component decorator
+    const componentDecorator = (href, text) => {
       return (
-        <button
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setShowFullDescription(!showFullDescription);
-          }}
-          className="btn show-description-btn"
-          type="button"
-        >
-          {buttonText}
-        </button>
+        <a href={href} target="_blank" rel="nofollow noopener noreferrer">
+          {text}
+        </a>
       );
     };
 
     return (
       <div className="margin-y-2 video-description">
-        {descriptionLines.slice(0, itemsToShow).map((textLine, index) => (
+        {descriptionItems.slice(0, itemsToShow).map((item, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <p className="description-text" key={index}>
-            {textLine}
+            <Linkify componentDecorator={componentDecorator}>{item}</Linkify>
           </p>
         ))}
-        {renderShowMoreLessButton()}
+        {renderShowMoreBtn(descriptionItems)}
       </div>
     );
   };
