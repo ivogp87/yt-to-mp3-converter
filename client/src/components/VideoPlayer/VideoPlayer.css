@@ -1,11 +1,11 @@
-.video-iframe {
+.video-player {
   position: relative;
   overflow: hidden;
   width: 100%;
   padding-top: 56.25%;
 }
 
-.video-iframe iframe {
+.yt-iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -13,81 +13,4 @@
   right: 0;
   width: 100%;
   height: 100%;
-}
-
-.video-info svg {
-  color: #444;
-  margin-right: 10px;
-}
-
-.video-tags {
-  margin: 10px 0;
-  word-break: break-word;
-}
-
-.video-tags a {
-  margin-right: 20px;
-}
-
-.video-tags a:last-child {
-  margin-right: 0;
-}
-
-.video-tags a::before {
-  content: '#';
-}
-
-.video-tags a {
-  font-size: 1.4rem;
-  font-weight: 400;
-}
-
-.video-title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 10px 0 20px;
-}
-
-.video-meta {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 10px 0;
-}
-
-.meta-text,
-.meta-stats {
-  font-size: 1.4rem;
-  font-weight: 400;
-  padding: 10px 0;
-}
-
-.meta-text {
-  flex: 1 1 250px;
-}
-
-.meta-text span,
-.meta-stats span {
-  margin-right: 20px;
-}
-
-.meta-text span:last-child,
-.meta-stats span:last-child {
-  margin-right: 0;
-}
-
-.channel-byline {
-  font-weight: bold;
-}
-
-.video-description p {
-  font-size: 1.6rem;
-  margin: 0.5rem 0;
-  min-height: 1.6rem;
-}
-
-.video-description button {
-  margin: 10px 0;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  font-weight: 500;
 }
