@@ -59,3 +59,21 @@ export const getPopularVideos = async (videoCategoryId = 10, maxResults = 20) =>
     return error;
   }
 };
+
+// Fetch related videos
+export const getRelatedVideos = async (videoId, maxResults = 20) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/search?part=snippet&videoEmbeddable=true&eventType=completed&maxResults=${maxResults}&relatedToVideoId=${videoId}&type=video&key=${API_KEY}`
+    );
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    }
+
+    throw new Error('Request failed');
+  } catch (error) {
+    return error;
+  }
+};

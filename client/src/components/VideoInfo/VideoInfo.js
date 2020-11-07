@@ -90,9 +90,9 @@ const VideoInfo = ({ videoId }) => {
     const itemsToShow = showFullDescription ? descriptionItems.length : 3;
 
     // Linkify component decorator
-    const componentDecorator = (href, text) => {
+    const componentDecorator = (href, text, key) => {
       return (
-        <a href={href} target="_blank" rel="nofollow noopener noreferrer">
+        <a key={key} href={href} target="_blank" rel="nofollow noopener noreferrer">
           {text}
         </a>
       );

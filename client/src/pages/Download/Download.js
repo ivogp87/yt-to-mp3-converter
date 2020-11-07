@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Download.css';
 import VideoPlayer from '../../components/VideoPlayer';
+import VideoInfo from '../../components/VideoInfo';
 import DownloadMp3 from '../../components/DownloadMp3';
+import RelatedVideos from '../../components/RelatedVideos';
 
 const Download = ({
   match: {
@@ -10,18 +12,17 @@ const Download = ({
   },
 }) => {
   return (
-    <main className="download">
-      <div className="container padding-2">
-        <div className="row">
-          <div className="video-container">
-            <VideoPlayer videoId={videoId} autoPlay />
-          </div>
-          <div className="download-container">
-            <DownloadMp3 videoId={videoId} />
-          </div>
-        </div>
-      </div>
-    </main>
+    <div className="container padding-2 download">
+      <main className="margin-y-1 content">
+        <VideoPlayer videoId={videoId} autoPlay />
+        <DownloadMp3 videoId={videoId} />
+        <VideoInfo videoId={videoId} />
+      </main>
+      <aside className="margin-y-1 sidebar">
+        <h3 className="related-videos">Related Videos</h3>
+        <RelatedVideos videoId={videoId} />
+      </aside>
+    </div>
   );
 };
 
