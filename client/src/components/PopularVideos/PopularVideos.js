@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PopularVideos.css';
-import { getPopularVideos } from '../../apis/youTube';
+import youTube from '../../apis/youTube';
 import VideoPreview from '../VideoPreview';
 
 const PopularVideos = ({ videoCategoryId, maxResults }) => {
@@ -12,7 +12,7 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
   // Fetch the videos from YouTube
   useEffect(() => {
     const fetchVideos = async () => {
-      const videoData = await getPopularVideos(videoCategoryId, maxResults);
+      const videoData = await youTube.getPopularVideos(videoCategoryId, maxResults);
 
       if (videoData instanceof Error) {
         setError(true);

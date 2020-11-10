@@ -13,7 +13,7 @@ import {
 import Linkify from 'react-linkify';
 import './VideoInfo.css';
 import { formatNumber, formatDate } from '../../helpers';
-import { getVideoById } from '../../apis/youTube';
+import youTube from '../../apis/youTube';
 
 const VideoInfo = ({ videoId }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ const VideoInfo = ({ videoId }) => {
   // Fetch the video info from YouTube
   useEffect(() => {
     const fetchVideoInfo = async () => {
-      const videoData = await getVideoById(videoId);
+      const videoData = await youTube.getVideoInfo(videoId);
 
       if (videoData instanceof Error) {
         setError(true);

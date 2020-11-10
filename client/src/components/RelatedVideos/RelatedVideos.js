@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getRelatedVideos } from '../../apis/youTube';
+import youTube from '../../apis/youTube';
 import VideoPreview from '../VideoPreview';
 
 const RelatedVideos = ({ videoId }) => {
@@ -11,7 +11,7 @@ const RelatedVideos = ({ videoId }) => {
   // Fetch the related videos from YouTube
   useEffect(() => {
     const fetchRelatedVideos = async () => {
-      const videoData = await getRelatedVideos(videoId);
+      const videoData = await youTube.getRelatedVideos(videoId);
 
       if (videoData instanceof Error) {
         setError(true);

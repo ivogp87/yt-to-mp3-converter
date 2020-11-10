@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { searchByKeyword } from '../../apis/youTube';
+import youTube from '../../apis/youTube';
 import VideoPreview from '../VideoPreview';
 
 const SearchResults = ({ searchTerm }) => {
@@ -11,7 +11,7 @@ const SearchResults = ({ searchTerm }) => {
   // Fetch the search results from YT
   useEffect(() => {
     const fetchResults = async () => {
-      const data = await searchByKeyword(searchTerm);
+      const data = await youTube.searchByKeyword(searchTerm);
       if (data instanceof Error) {
         setError(true);
         setIsLoading(false);
