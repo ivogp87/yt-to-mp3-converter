@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import youTube from '../../apis/youTube';
+import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
 
-const SearchResults = ({ searchTerm }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+const SearchResults = ({ searchTerm, maxResults }) => {
+  const findVideos = useCallback(() => youTube.searchByKeyword(searchTerm, maxResults), [
+    searchTerm,
+    maxResults,
+  ]);
 
-  // Fetch the search results from YT
-  useEffect(() => {
-    const fetchResults = async () => {
-      const data = await youTube.searchByKeyword(searchTerm);
-      if (data instanceof Error) {
-        setError(true);
-        setIsLoading(false);
-      } else {
-        setSearchResults(data.items);
-        setIsLoading(false);
-      }
-    };
-
-    fetchResults();
-  }, [searchTerm]);
+  const [isLoading, error, youTubeData] = useYouTubeData(findVideos);
 
   // Loading
   if (isLoading) {
@@ -36,7 +24,7 @@ const SearchResults = ({ searchTerm }) => {
 
   return (
     <div className="search-results">
-      {searchResults.map((searchResult) => {
+      {youTubeData.map((searchResult) => {
         return (
           <VideoPreview
             key={searchResult.id.videoId}
@@ -55,6 +43,11 @@ const SearchResults = ({ searchTerm }) => {
 
 SearchResults.propTypes = {
   searchTerm: PropTypes.string.isRequired,
+  maxResults: PropTypes.number,
+};
+
+SearchResults.defaultProps = {
+  maxResults: 20,
 };
 
 export default SearchResults;

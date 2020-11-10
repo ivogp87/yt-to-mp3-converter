@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,34 +14,30 @@ import Linkify from 'react-linkify';
 import './VideoInfo.css';
 import { formatNumber, formatDate } from '../../helpers';
 import youTube from '../../apis/youTube';
+import useYouTubeData from '../../hooks/useYouTubeData';
 
 const VideoInfo = ({ videoId }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [videoInfo, setVideoInfo] = useState({});
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-  // Fetch the video info from YouTube
-  useEffect(() => {
-    const fetchVideoInfo = async () => {
-      const videoData = await youTube.getVideoInfo(videoId);
+  const getVideoInfo = useCallback(() => youTube.getVideoInfo(videoId), [videoId]);
 
-      if (videoData instanceof Error) {
-        setError(true);
-        setIsLoading(false);
-      } else {
-        setVideoInfo(videoData.items[0]);
-        setIsLoading(false);
-      }
-    };
+  const [isLoading, error, youTubeData] = useYouTubeData(getVideoInfo);
+  const videoInfo = youTubeData[0];
 
-    fetchVideoInfo();
-  }, [videoId]);
+  // Loading
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  // Error
+  if (error) {
+    return <div>Something went wrong. Please try again.</div>;
+  }
 
   // Render the video tags/keywords
   const renderVideoTags = () => {
-    // Return null if there are no tags (empty array)
-    if (!videoInfo.snippet.tags.length) return null;
+    // Return null if there are no tags
+    if (!videoInfo.snippet.tags) return null;
 
     // Render only the first three tags
     return videoInfo.snippet.tags.slice(0, 3).map((tag) => {
@@ -79,7 +75,7 @@ const VideoInfo = ({ videoId }) => {
   // Render the video description
   const renderVideoDescription = () => {
     // Empty description
-    if (!videoInfo.snippet.description.length) return null;
+    if (!videoInfo.snippet.description) return null;
 
     // Render the description
 
@@ -110,16 +106,6 @@ const VideoInfo = ({ videoId }) => {
       </div>
     );
   };
-
-  // Loading
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-
-  // Error
-  if (error) {
-    return <div>Something went wrong. Please try again.</div>;
-  }
 
   return (
     <div className="video-info">

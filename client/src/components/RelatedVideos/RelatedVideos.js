@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import youTube from '../../apis/youTube';
+import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
 
-const RelatedVideos = ({ videoId }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [relatedVideos, setRelatedVideos] = useState([]);
+const RelatedVideos = ({ videoId, maxResults }) => {
+  const getRelatedVideos = useCallback(() => youTube.getRelatedVideos(videoId, maxResults), [
+    videoId,
+    maxResults,
+  ]);
 
-  // Fetch the related videos from YouTube
-  useEffect(() => {
-    const fetchRelatedVideos = async () => {
-      const videoData = await youTube.getRelatedVideos(videoId);
-
-      if (videoData instanceof Error) {
-        setError(true);
-        setIsLoading(false);
-      } else {
-        setRelatedVideos(videoData.items);
-        setIsLoading(false);
-      }
-    };
-
-    fetchRelatedVideos();
-  }, [videoId]);
+  const [isLoading, error, youTubeData] = useYouTubeData(getRelatedVideos);
 
   // Loading
   if (isLoading) return <div>Loading...</div>;
@@ -34,7 +21,7 @@ const RelatedVideos = ({ videoId }) => {
   // Render related videos
   return (
     <div className="related-videos">
-      {relatedVideos.map((video) => {
+      {youTubeData.map((video) => {
         return (
           <VideoPreview
             key={video.id.videoId}
@@ -52,6 +39,11 @@ const RelatedVideos = ({ videoId }) => {
 
 RelatedVideos.propTypes = {
   videoId: PropTypes.string.isRequired,
+  maxResults: PropTypes.number,
+};
+
+RelatedVideos.defaultProps = {
+  maxResults: 20,
 };
 
 export default RelatedVideos;

@@ -1,30 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './PopularVideos.css';
 import youTube from '../../apis/youTube';
+import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
 
 const PopularVideos = ({ videoCategoryId, maxResults }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [popularVideos, setPopularVideos] = useState([]);
+  const getPopularVideos = useCallback(
+    () => youTube.getPopularVideos(videoCategoryId, maxResults),
+    [videoCategoryId, maxResults]
+  );
 
-  // Fetch the videos from YouTube
-  useEffect(() => {
-    const fetchVideos = async () => {
-      const videoData = await youTube.getPopularVideos(videoCategoryId, maxResults);
-
-      if (videoData instanceof Error) {
-        setError(true);
-        setIsLoading(false);
-      } else {
-        setPopularVideos(videoData.items);
-        setIsLoading(false);
-      }
-    };
-
-    fetchVideos();
-  }, [videoCategoryId, maxResults]);
+  const [isLoading, error, youTubeData] = useYouTubeData(getPopularVideos);
 
   // Loading
   if (isLoading) return <div>Loading...</div>;
@@ -35,7 +22,7 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
   // Return the popular videos
   return (
     <div className="popular-videos">
-      {popularVideos.map((video) => {
+      {youTubeData.map((video) => {
         return (
           <VideoPreview
             key={video.id}
