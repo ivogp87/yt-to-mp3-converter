@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+
+.footer {
+  color: $text-secondary;
+  background: $bg-secondary;
+  padding: 10px 0;
+}
+
+.socialMediaProfiles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  > * {
+    padding: 10px 20px;
+  }
+}

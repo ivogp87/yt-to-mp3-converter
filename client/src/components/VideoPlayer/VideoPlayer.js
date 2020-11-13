@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './VideoPlayer.css';
+import styles from './VideoPlayer.module.scss';
 
 const VideoPlayer = ({ videoId, autoPlay }) => {
   return (
-    <div className="video-player">
+    <div className={styles.videoPlayer}>
       <iframe
-        className="yt-iframe"
+        className={styles.responsiveIframe}
         title="YouTube video"
         width="100%"
         height="auto"

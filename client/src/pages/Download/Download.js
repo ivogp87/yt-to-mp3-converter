@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Download.css';
+import styles from './Download.module.scss';
+import Container from '../../components/Container';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoInfo from '../../components/VideoInfo';
-import DownloadMp3 from '../../components/DownloadMp3';
 import RelatedVideos from '../../components/RelatedVideos';
 
 const Download = ({
@@ -12,17 +12,18 @@ const Download = ({
   },
 }) => {
   return (
-    <div className="container padding-2 download">
-      <main className="margin-y-1 content">
-        <VideoPlayer videoId={videoId} autoPlay />
-        <DownloadMp3 videoId={videoId} />
-        <VideoInfo videoId={videoId} />
-      </main>
-      <aside className="margin-y-1 sidebar">
-        <h3 className="related-videos">Related Videos</h3>
-        <RelatedVideos videoId={videoId} />
-      </aside>
-    </div>
+    <Container>
+      <div className={styles.wrapper}>
+        <main className={styles.mainContent}>
+          <VideoPlayer videoId={videoId} autoPlay />
+          <VideoInfo videoId={videoId} />
+        </main>
+        <aside className={styles.sidebar}>
+          <h3 className={styles.title}>Related Videos</h3>
+          <RelatedVideos videoId={videoId} />
+        </aside>
+      </div>
+    </Container>
   );
 };
 

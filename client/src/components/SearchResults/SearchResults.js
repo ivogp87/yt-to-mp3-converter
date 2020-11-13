@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import styles from './SearchResults.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
@@ -23,21 +24,23 @@ const SearchResults = ({ searchTerm, maxResults }) => {
   }
 
   return (
-    <div className="search-results">
+    <>
       {youTubeData.map((searchResult) => {
         return (
-          <VideoPreview
-            key={searchResult.id.videoId}
-            id={searchResult.id.videoId}
-            title={searchResult.snippet.title}
-            thumbnail={searchResult.snippet.thumbnails.medium.url}
-            description={searchResult.snippet.description}
-            channelTitle={searchResult.snippet.channelTitle}
-            publishTime={searchResult.snippet.publishTime}
-          />
+          <div className={styles.searchResult} key={searchResult.id.videoId}>
+            <VideoPreview
+              direction="row"
+              id={searchResult.id.videoId}
+              title={searchResult.snippet.title}
+              thumbnail={searchResult.snippet.thumbnails.medium.url}
+              description={searchResult.snippet.description}
+              channelTitle={searchResult.snippet.channelTitle}
+              publishTime={searchResult.snippet.publishTime}
+            />
+          </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

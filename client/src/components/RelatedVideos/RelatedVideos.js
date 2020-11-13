@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import styles from './RelatedVideos.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
@@ -19,22 +20,20 @@ const RelatedVideos = ({ videoId, maxResults }) => {
   if (error) return <div>Something went wrong. Please try again.</div>;
 
   // Render related videos
-  return (
-    <div className="related-videos">
-      {youTubeData.map((video) => {
-        return (
-          <VideoPreview
-            key={video.id.videoId}
-            id={video.id.videoId}
-            title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.medium.url}
-            channelTitle={video.snippet.channelTitle}
-            publishTime={video.snippet.publishTime}
-          />
-        );
-      })}
-    </div>
-  );
+  return youTubeData.map((video) => {
+    return (
+      <div className={styles.relatedVideo} key={video.id.videoId}>
+        <VideoPreview
+          direction="row"
+          id={video.id.videoId}
+          title={video.snippet.title}
+          thumbnail={video.snippet.thumbnails.medium.url}
+          channelTitle={video.snippet.channelTitle}
+          publishTime={video.snippet.publishTime}
+        />
+      </div>
+    );
+  });
 };
 
 RelatedVideos.propTypes = {

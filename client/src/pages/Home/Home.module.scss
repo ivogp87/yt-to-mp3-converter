@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+
+.mainHeader {
+  color: $text-secondary;
+  background: $bg-secondary;
+}
+
+.mainHeader,
+.popularVideosContainer {
+  margin-bottom: 20px;
+}
+
+.headerInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 35vh;
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .text {
+    font-size: 2rem;
+  }
+
+  .searchContainer {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0 50px 0;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .headerInner {
+    .title {
+      font-size: 2rem;
+    }
+
+    .text {
+      font-size: 1.6rem;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Search.module.scss';
 import { parseQueryString } from '../../helpers';
 import SearchResults from '../../components/SearchResults';
+import Container from '../../components/Container';
 
 const Search = ({ location: { search } }) => {
   const searchTerm = parseQueryString(search);
@@ -12,8 +14,12 @@ const Search = ({ location: { search } }) => {
   }
 
   return (
-    <main className="container padding-2">
-      <SearchResults searchTerm={searchTerm} />
+    <main>
+      <Container>
+        <div className={styles.searchResultsContainer}>
+          <SearchResults searchTerm={searchTerm} />
+        </div>
+      </Container>
     </main>
   );
 };

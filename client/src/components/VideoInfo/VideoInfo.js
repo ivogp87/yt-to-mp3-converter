@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,15 +10,13 @@ import {
   faEye,
   faCalendarWeek,
 } from '@fortawesome/free-solid-svg-icons';
-import Linkify from 'react-linkify';
-import './VideoInfo.css';
-import { formatNumber, formatDate } from '../../helpers';
+import styles from './VideoInfo.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
+import VideoStat from './VideoStat';
+import VideoDescription from './VideoDescription';
 
 const VideoInfo = ({ videoId }) => {
-  const [showFullDescription, setShowFullDescription] = useState(false);
-
   const getVideoInfo = useCallback(() => youTube.getVideoInfo(videoId), [videoId]);
 
   const [isLoading, error, youTubeData] = useYouTubeData(getVideoInfo);
@@ -43,114 +41,43 @@ const VideoInfo = ({ videoId }) => {
     return videoInfo.snippet.tags.slice(0, 3).map((tag) => {
       const urlEncodedTag = encodeURIComponent(tag).replace(/%20/gi, '+');
       return (
-        <Link className="video-tag" key={tag} to={`/search?term=%23${urlEncodedTag}`}>
+        <Link className={styles.tag} key={tag} to={`/search?term=%23${urlEncodedTag}`}>
           {tag}
         </Link>
       );
     });
   };
 
-  // Render show more/less button
-  const renderShowMoreBtn = (descriptionItems) => {
-    // Don't render the button if there are less than 3 items
-    if (descriptionItems.length <= 3) return null;
-
-    // render the button
-    const buttonText = showFullDescription ? 'Show Less' : 'Show More';
-
-    return (
-      <button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          setShowFullDescription(!showFullDescription);
-        }}
-        className="btn show-description-btn"
-        type="button"
-      >
-        {buttonText}
-      </button>
-    );
-  };
-
-  // Render the video description
-  const renderVideoDescription = () => {
-    // Empty description
-    if (!videoInfo.snippet.description) return null;
-
-    // Render the description
-
-    // Split the description on new line (\n)
-    const descriptionItems = videoInfo.snippet.description.split('\n');
-
-    // Show only 3 lines from the description by default
-    const itemsToShow = showFullDescription ? descriptionItems.length : 3;
-
-    // Linkify component decorator
-    const componentDecorator = (href, text, key) => {
-      return (
-        <a key={key} href={href} target="_blank" rel="nofollow noopener noreferrer">
-          {text}
-        </a>
-      );
-    };
-
-    return (
-      <div className="margin-y-2 video-description">
-        {descriptionItems.slice(0, itemsToShow).map((item, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <p className="description-text" key={index}>
-            <Linkify componentDecorator={componentDecorator}>{item}</Linkify>
-          </p>
-        ))}
-        {renderShowMoreBtn(descriptionItems)}
-      </div>
-    );
-  };
-
   return (
-    <div className="video-info">
-      <div className="video-tags text-secondary">{renderVideoTags()}</div>
-      <h1 className="video-title">{videoInfo.snippet.title}</h1>
+    <>
+      <div className={styles.tags}>{renderVideoTags()}</div>
+      <h2 className={styles.title}>{videoInfo.snippet.title}</h2>
       {/* Video stats - views, likes, etc */}
-      <div className="row video-stats">
-        <div className="row video-stats-main">
-          <p className="video-views">
-            <FontAwesomeIcon className="icon" icon={faEye} />
-            {formatNumber(Number(videoInfo.statistics.viewCount))}
-            &nbsp; views
-          </p>
-          <p className="publish-date">
-            <FontAwesomeIcon className="icon" icon={faCalendarWeek} />
-            {formatDate(new Date(videoInfo.snippet.publishedAt))}
-          </p>
+      <div className={styles.videoStats}>
+        <div className={styles.videoStatsPrimary}>
+          <VideoStat icon={faEye} videoStat={videoInfo.statistics.viewCount} text="views" />
+          <VideoStat icon={faCalendarWeek} videoStat={videoInfo.snippet.publishedAt} type="date" />
         </div>
-        <div className="row video-stats-secondary">
-          <p className="video-likes" title="Likes">
-            <FontAwesomeIcon className="icon" icon={faThumbsUp} />
-            {formatNumber(Number(videoInfo.statistics.likeCount))}
-          </p>
-          <p className="video-dislikes" title="Dislikes">
-            <FontAwesomeIcon className="icon" icon={faThumbsDown} />
-            {formatNumber(Number(videoInfo.statistics.dislikeCount))}
-          </p>
-          <p className="video-comments" title="Comments">
-            <FontAwesomeIcon className="icon" icon={faComment} />
-            {formatNumber(Number(videoInfo.statistics.commentCount))}
-          </p>
+        <div className={styles.videoStatsSecondary}>
+          <VideoStat icon={faThumbsUp} videoStat={videoInfo.statistics.likeCount} />
+          <VideoStat icon={faThumbsDown} videoStat={videoInfo.statistics.dislikeCount} />
+          <VideoStat icon={faComment} videoStat={videoInfo.statistics.commentCount} />
         </div>
       </div>
       <a
-        className="margin-y-1 channel-title"
+        className={styles.channelTitle}
         title={`Visit ${videoInfo.snippet.channelTitle}'s YouTube Channel`}
         href={`https://www.youtube.com/channel/${videoInfo.snippet.channelId}`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FontAwesomeIcon className="icon" icon={faUser} />
+        <FontAwesomeIcon className={styles.icon} icon={faUser} />
         {videoInfo.snippet.channelTitle}
       </a>
-      {renderVideoDescription()}
-    </div>
+      {videoInfo.snippet.description && (
+        <VideoDescription description={videoInfo.snippet.description} />
+      )}
+    </>
   );
 };
 

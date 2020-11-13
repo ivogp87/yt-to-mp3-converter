@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px 0;
+}
+
+.mainContent {
+  flex: 70%;
+}
+
+.sidebar {
+  flex: 30%;
+  padding-left: 20px;
+
+  .title {
+    margin-top: 0;
+    font-weight: 600;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .wrapper {
+    flex-flow: column;
+  }
+
+  .sidebar {
+    padding-left: 0;
+  }
+}

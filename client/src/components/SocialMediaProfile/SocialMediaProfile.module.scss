@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+
+.primary {
+  color: $text-primary;
+  background: $bg-primary;
+}
+
+.secondary {
+  color: $text-secondary;
+  background: $bg-secondary;
+}
+
+.light {
+  color: $text-light;
+  background: $bg-primary;
+}
+
+.dark {
+  color: $text-dark;
+  background: $bg-primary;
+}

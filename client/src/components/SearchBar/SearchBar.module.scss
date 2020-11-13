@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+
+.searchBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.searchForm,
+.searchBtn {
+  height: 35px;
+  background: $bg-primary;
+  border: 0;
+}
+
+.searchForm {
+  width: 100%;
+  color: $text-primary;
+  font-size: 1.6rem;
+  padding: 5px 10px;
+  border-radius: 5px 0 0 5px;
+  outline-color: $bg-secondary;
+}
+
+.searchBtn {
+  color: $text-dark;
+  padding: 0 10px;
+  border-radius: 0 5px 5px 0;
+  border-left: 2px solid $bg-secondary;
+}

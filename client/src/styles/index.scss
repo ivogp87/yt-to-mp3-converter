@@ -1,0 +1,61 @@
+// Normalize.css styles
+@import-normalize;
+
+// Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Open+Sans:wght@300;400;600;800&display=swap');
+
+// Variables
+@import '../styles/variables';
+
+/* Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: $font-primary;
+  line-height: 1.5;
+  background: $bg-primary;
+  color: $text-primary;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-secondary;
+  margin: 1rem 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2,
+h3 {
+  font-size: 1.8rem;
+}
+
+p {
+  font-size: 1.6rem;
+  margin: 1rem 0;
+}
+
+a {
+  color: $text-light;
+  text-decoration: none;
+}

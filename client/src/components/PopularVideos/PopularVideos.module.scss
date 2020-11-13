@@ -1,0 +1,34 @@
+.popularVideos {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -10px -20px; // reset the padding of .video
+}
+
+.video {
+  flex-basis: 25%;
+  padding: 0 10px 20px;
+}
+
+@media only screen and (max-width: 1150px) {
+  .video {
+    flex-basis: 33.3%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .video {
+    flex-basis: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .popularVideos {
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .video {
+    flex-basis: 100%;
+    width: 100%;
+  }
+}

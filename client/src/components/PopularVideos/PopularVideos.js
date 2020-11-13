@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import './PopularVideos.css';
+import styles from './PopularVideos.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
 import VideoPreview from '../VideoPreview';
@@ -21,18 +21,20 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
 
   // Return the popular videos
   return (
-    <div className="popular-videos">
+    <div className={styles.popularVideos}>
       {youTubeData.map((video) => {
         return (
-          <VideoPreview
-            key={video.id}
-            id={video.id}
-            title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.medium.url}
-            channelTitle={video.snippet.channelTitle}
-            publishTime={video.snippet.publishedAt}
-            videoViews={video.statistics.viewCount}
-          />
+          <div className={styles.video} key={video.id}>
+            <VideoPreview
+              direction="column"
+              id={video.id}
+              title={video.snippet.title}
+              thumbnail={video.snippet.thumbnails.medium.url}
+              channelTitle={video.snippet.channelTitle}
+              publishTime={video.snippet.publishedAt}
+              views={video.statistics.viewCount}
+            />
+          </div>
         );
       })}
     </div>
