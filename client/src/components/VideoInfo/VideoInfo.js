@@ -13,6 +13,7 @@ import {
 import styles from './VideoInfo.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
+import ComponentStatus from '../ComponentStatus';
 import VideoStat from './VideoStat';
 import VideoDescription from './VideoDescription';
 
@@ -24,12 +25,17 @@ const VideoInfo = ({ videoId }) => {
 
   // Loading
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return <ComponentStatus status="loading" message="Loading..." />;
   }
 
   // Error
   if (error) {
-    return <div>Something went wrong. Please try again.</div>;
+    return (
+      <ComponentStatus
+        status="error"
+        message="We can't display information about this video right now..."
+      />
+    );
   }
 
   // Render the video tags/keywords

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './SearchResults.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
+import ComponentStatus from '../ComponentStatus';
 import VideoPreview from '../VideoPreview';
 
 const SearchResults = ({ searchTerm, maxResults }) => {
@@ -15,12 +16,17 @@ const SearchResults = ({ searchTerm, maxResults }) => {
 
   // Loading
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <ComponentStatus status="loading" message="Loading" />;
   }
 
   // Error
   if (error) {
-    return <div>Something went wrong. Please try again</div>;
+    return (
+      <ComponentStatus
+        status="error"
+        message="Something went wrong. Please try searching again..."
+      />
+    );
   }
 
   return (

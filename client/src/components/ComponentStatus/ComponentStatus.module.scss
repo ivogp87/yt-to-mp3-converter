@@ -1,0 +1,15 @@
+.ComponentStatus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  margin-bottom: 10px;
+}
+
+.message {
+  font-size: 1.6rem;
+  margin: 0;
+}

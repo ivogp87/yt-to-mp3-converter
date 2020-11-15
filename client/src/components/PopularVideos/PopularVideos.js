@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './PopularVideos.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
+import ComponentStatus from '../ComponentStatus';
 import VideoPreview from '../VideoPreview';
 
 const PopularVideos = ({ videoCategoryId, maxResults }) => {
@@ -14,10 +15,11 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
   const [isLoading, error, youTubeData] = useYouTubeData(getPopularVideos);
 
   // Loading
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ComponentStatus status="loading" message="Loading..." />;
 
   // Error
-  if (error) return <div>Something went wrong. Please try again.</div>;
+  if (error)
+    return <ComponentStatus status="error" message="We can't display any videos right now..." />;
 
   // Return the popular videos
   return (
