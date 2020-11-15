@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+// eslint-disable-next-line import/no-unresolved
 import styles from './NavBar.module.scss';
 import Container from '../Container';
 import logo from '../../images/logo.png';
+// eslint-disable-next-line import/no-unresolved
 import NavBarItems from './NavBarItems';
 
 const NavBar = () => {
