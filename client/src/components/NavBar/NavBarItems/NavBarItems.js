@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faHome, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from '../NavBar.module.scss';
 import SearchBar from '../../SearchBar';
+import Button from '../../Button';
 
 const NavBarItems = ({ showSearchBar, setShowSearchBar, pathname }) => {
   // Don't render the component on the homepage
   if (pathname === '/') return null;
+
+  const handleCloseIconClick = () => setShowSearchBar(false);
+  const handleSearchIconClick = () => setShowSearchBar(true);
 
   return (
     <>
@@ -16,11 +19,12 @@ const NavBarItems = ({ showSearchBar, setShowSearchBar, pathname }) => {
         // Close button - hides the search bar. Hidden by default. Displayed only on mobile when the search bar is open
         showSearchBar && (
           <li className={styles.menuItem}>
-            <FontAwesomeIcon
-              onClick={() => setShowSearchBar(false)}
-              className={styles.icon}
+            <Button
               icon={faTimes}
-              size="2x"
+              onClick={handleCloseIconClick}
+              variant="text"
+              color="secondary"
+              size="small"
             />
           </li>
         )
@@ -38,17 +42,20 @@ const NavBarItems = ({ showSearchBar, setShowSearchBar, pathname }) => {
         // Search and home icons - hidden on mobile when the search bar is open
         !showSearchBar && (
           <>
+            {/* Search Icon - opens the search bar on mobile */}
             <li className={`${styles.menuItem} ${styles.searchBtn}`}>
-              <FontAwesomeIcon
-                onClick={() => setShowSearchBar(true)}
-                className={styles.icon}
+              <Button
                 icon={faSearch}
-                size="lg"
+                onClick={handleSearchIconClick}
+                variant="text"
+                color="secondary"
+                size="small"
               />
             </li>
+            {/* Home icon */}
             <li className={styles.menuItem}>
               <Link className={styles.link} to="/" title="Home">
-                <FontAwesomeIcon className={styles.icon} icon={faHome} size="lg" />
+                <Button icon={faHome} variant="text" color="secondary" size="small" />
               </Link>
             </li>
           </>

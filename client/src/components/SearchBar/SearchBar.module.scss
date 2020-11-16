@@ -4,6 +4,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
+  .searchBtn {
+    border-radius: 0 5px 5px 0;
+    border-left: 2px solid $bg-secondary;
+  
+    &:hover {
+      border-left: 2px solid $bg-dark;
+    }
+  }
 }
 
 .searchForm,
@@ -22,9 +31,4 @@
   outline-color: $bg-secondary;
 }
 
-.searchBtn {
-  color: $text-dark;
-  padding: 0 10px;
-  border-radius: 0 5px 5px 0;
-  border-left: 2px solid $bg-secondary;
-}
+

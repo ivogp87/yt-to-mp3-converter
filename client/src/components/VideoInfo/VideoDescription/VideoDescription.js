@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import Linkify from 'react-linkify';
 import styles from './VideoDescription.module.scss';
+import Button from '../../Button';
 
 const VideoDescription = ({ description }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -18,19 +20,21 @@ const VideoDescription = ({ description }) => {
     if (descriptionItems.length <= 3) return null;
 
     // render the button
-    const buttonText = showFullDescription ? 'Show Less' : 'Show More';
+    const buttonText = showFullDescription ? 'Show less' : 'Show More';
+    const buttonIcon = showFullDescription ? faChevronUp : faChevronDown;
+
+    const handleShowMoreClick = () => setShowFullDescription(!showFullDescription);
 
     return (
-      <button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          setShowFullDescription(!showFullDescription);
-        }}
-        className={styles.showMoreBtn}
-        type="button"
+      <Button
+        onClick={handleShowMoreClick}
+        extraClass={styles.showMoreBtn}
+        icon={buttonIcon}
+        variant="text"
+        size="small"
       >
         {buttonText}
-      </button>
+      </Button>
     );
   };
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styles from './SearchBar.module.scss';
 import { parseQueryString } from '../../helpers';
+import Button from '../Button';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +20,7 @@ const SearchBar = () => {
     }
   }, [search]);
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
@@ -45,14 +45,18 @@ const SearchBar = () => {
     <form className={styles.searchBar} onSubmit={handleSubmit}>
       <input
         className={styles.searchForm}
-        onChange={handleChange}
+        onChange={handleInputChange}
         type="text"
         value={searchTerm}
         placeholder={placeholder}
       />
-      <button className={styles.searchBtn} type="submit">
-        <FontAwesomeIcon icon={faSearch} size="lg" />
-      </button>
+      <Button
+        type="submit"
+        icon={faSearch}
+        variant="text"
+        size="small"
+        extraClass={styles.searchBtn}
+      />
     </form>
   );
 };

@@ -1,0 +1,78 @@
+@import '../../styles/variables';
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+  outline: 0;
+}
+
+.icon {
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+// Text buttons
+
+.text-primary {
+  color: $text-dark;
+  background: $bg-primary;
+
+  &:hover {
+    color: $text-light;
+  }
+}
+
+.text-secondary {
+  color: $text-secondary;
+  background: $bg-secondary;
+
+  &:hover {
+    color: #e7eff5;
+  }
+}
+
+// Contained buttons
+
+.contained-primary {
+  color: $text-secondary;
+  background: $bg-secondary;
+
+  &:hover {
+    background: $bg-dark;
+  }
+}
+
+.contained-secondary {
+  color: $text-dark;
+  background: $bg-primary;
+
+  &:hover {
+    color: $text-light;
+  }
+}
+
+// Sizes
+
+.small {
+  padding: 10px;
+}
+
+.medium {
+  padding: 10px 20px;
+}
+
+.large {
+  padding: 20px 40px;
+}

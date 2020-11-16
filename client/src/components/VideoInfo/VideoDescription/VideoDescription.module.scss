@@ -13,14 +13,9 @@
 }
 
 .showMoreBtn {
-  font-size: 1.6rem;
-  font-weight: 600;
+  padding: 0;
   text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  outline: none;
-  border: none;
-  background: none;
+  overflow-anchor: none;
 }
 
 @media only screen and (max-width: 600px) {

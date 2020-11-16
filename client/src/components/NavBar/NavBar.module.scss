@@ -27,7 +27,7 @@
 }
 
 .menuItem {
-  margin-right: 40px;
+  margin-right: 10px;
 
   &:last-child {
     margin-right: 0;
@@ -36,12 +36,12 @@
 
 .searchBar {
   flex: 1 1 200px;
+  padding: 10px;
 }
 
-.icon,
 .link {
   color: $text-secondary;
-  cursor: pointer;
+  padding: 10px;
 }
 
 .searchBtn {
@@ -63,8 +63,8 @@
   }
 }
 
-@media only screen and (max-width: 480px) {
-  .menuItem {
-    margin-right: 20px;
-  }
-}
+// @media only screen and (max-width: 480px) {
+//   .menuItem {
+//     margin-right: 20px;
+//   }
+// }
