@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { formatNumber, formatDate, decodeHtmlEntities } from '../../helpers';
+import formatStrAsNumber from '../../helpers/formatStrAsNumber';
+import formatStrAsDate from '../../helpers/formatStrAsDate';
+import decodeHtmlEntities from '../../helpers/decodeHtmlEntities';
 import styles from './VideoPreview.module.scss';
 
 const VideoPreview = ({
@@ -30,11 +32,11 @@ const VideoPreview = ({
           </p>
           {views && (
             <p className={styles.text}>
-              {formatNumber(Number(views))}
+              {formatStrAsNumber(views)}
               &nbsp; views
             </p>
           )}
-          <p className={styles.text}>{formatDate(new Date(publishTime))}</p>
+          <p className={styles.text}>{formatStrAsDate(publishTime)}</p>
         </div>
         {description && (
           <div className={styles.description}>

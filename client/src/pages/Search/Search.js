@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Search.module.scss';
-import { parseQueryString } from '../../helpers';
+import parseQueryString from '../../helpers/parseQueryString';
 import SearchResults from '../../components/SearchResults';
 import Container from '../../components/Container';
 

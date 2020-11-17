@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styles from './SearchBar.module.scss';
-import { parseQueryString } from '../../helpers';
+import parseQueryString from '../../helpers/parseQueryString';
 import Button from '../Button';
 
 const SearchBar = () => {

@@ -14,7 +14,7 @@ import styles from './VideoInfo.module.scss';
 import youTube from '../../apis/youTube';
 import useYouTubeData from '../../hooks/useYouTubeData';
 import ComponentStatus from '../ComponentStatus';
-import VideoStat from './VideoStat';
+import VideoStatistic from './VideoStatistic';
 import VideoDescription from './VideoDescription';
 
 const VideoInfo = ({ videoId }) => {
@@ -61,13 +61,13 @@ const VideoInfo = ({ videoId }) => {
       {/* Video stats - views, likes, etc */}
       <div className={styles.videoStats}>
         <div className={styles.videoStatsPrimary}>
-          <VideoStat icon={faEye} videoStat={videoInfo.statistics.viewCount} text="views" />
-          <VideoStat icon={faCalendarWeek} videoStat={videoInfo.snippet.publishedAt} type="date" />
+          <VideoStatistic icon={faEye} count={videoInfo.statistics.viewCount} text="views" />
+          <VideoStatistic icon={faCalendarWeek} count={videoInfo.snippet.publishedAt} type="date" />
         </div>
         <div className={styles.videoStatsSecondary}>
-          <VideoStat icon={faThumbsUp} videoStat={videoInfo.statistics.likeCount} />
-          <VideoStat icon={faThumbsDown} videoStat={videoInfo.statistics.dislikeCount} />
-          <VideoStat icon={faComment} videoStat={videoInfo.statistics.commentCount} />
+          <VideoStatistic icon={faThumbsUp} count={videoInfo.statistics.likeCount} />
+          <VideoStatistic icon={faThumbsDown} count={videoInfo.statistics.dislikeCount} />
+          <VideoStatistic icon={faComment} count={videoInfo.statistics.commentCount} />
         </div>
       </div>
       <a

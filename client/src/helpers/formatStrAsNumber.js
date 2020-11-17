@@ -1,18 +1,11 @@
-// Parse the search term from the url. Returns false if there's no term param or the value is empty
-export const parseQueryString = (queryString) => {
-  const haveTerm = queryString.includes('?term=');
-  if (haveTerm) {
-    const searchTerm = queryString.replace('?term=', '');
-    return searchTerm === '' ? false : searchTerm;
-  }
-
-  return false;
-};
-
+// Formats number-like string (or number). Returns string!
 // Formats a numbers bigger than 999 like this: 1000 -> 1k; 150 000 -> 150K, etc
-export const formatNumber = (num) => {
-  // The input is not a number
-  if (Number.isNaN(num)) return num;
+const formatStrAsNumber = (str) => {
+  // Return the string if the input is not a number or number-like string
+  if (Number.isNaN(Number(str))) return str;
+
+  // Convert the string to number
+  const num = Number(str);
 
   // Numbers less than 1000 - return just the number as a string
   if (num < 1000) return num.toString();
@@ -48,20 +41,4 @@ export const formatNumber = (num) => {
   return `${numArr[0] + decimalPart} ${numberSign}`;
 };
 
-// Format date - ex: Jun 30, 2020
-export const formatDate = (date) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleString('en-US', options);
-};
-
-// Decode HTML entities
-export const decodeHtmlEntities = (string) => {
-  const map = {
-    '&amp;': '&',
-    '&quot;': '"',
-    '&#39;': "'",
-    '&#96;': '`',
-  };
-
-  return string.replace(/&amp;|&quot;|&#39;|&#96;/gi, (match) => map[match]);
-};
+export default formatStrAsNumber;
