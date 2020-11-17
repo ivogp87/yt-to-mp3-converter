@@ -6,6 +6,7 @@ import NavBar from '../NavBar';
 import Home from '../../pages/Home';
 import Search from '../../pages/Search';
 import Download from '../../pages/Download';
+import Error404 from '../../pages/Error404';
 import Footer from '../Footer';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/download/:videoId" component={Download} />
+            <Route path="/*" component={Error404} />
           </Switch>
         </div>
         <Footer />
