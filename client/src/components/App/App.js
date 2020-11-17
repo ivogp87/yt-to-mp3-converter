@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import '../../styles/index.scss'; // GLOBAL STYLES! Normalize, additional reset, etc!
 import styles from './App.module.scss';
+import ScrollToTop from '../ScrollToTop';
 import NavBar from '../NavBar';
 import Home from '../../pages/Home';
 import Search from '../../pages/Search';
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <BrowserRouter>
+        <ScrollToTop />
         <NavBar />
         <div className={styles.mainContent}>
           <Switch>
