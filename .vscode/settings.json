@@ -7,6 +7,8 @@
     "Cstatistics",
     "Embeddable",
     "Linkify",
-    "fontawesome"
+    "fontawesome",
+    "highestaudio",
+    "ytdl"
   ]
 }
