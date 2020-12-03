@@ -21,6 +21,7 @@ const Home = () => {
       <main>
         <Container>
           <div className={styles.popularVideosContainer}>
+            <h2>Popular Music Videos</h2>
             <PopularVideos />
           </div>
         </Container>
