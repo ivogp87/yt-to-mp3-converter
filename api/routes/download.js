@@ -11,7 +11,7 @@ downloadRouter.get("/:videoId", async (req, res, next) => {
 
     // Validate the video id/url
     if (!ytdl.validateURL(videoUrl)) {
-      return res.status(400).send("Invalid YouTube Url");
+      return res.status(400).send({ error: "Invalid YouTube Url" });
     }
 
     // Get the video info
@@ -31,7 +31,7 @@ downloadRouter.get("/:videoId", async (req, res, next) => {
 
     // Handle download errors
     downloadAudio.on("error", (err) => {
-      return res.status(400).send("Download failed!");
+      return res.status(400).send({ error: "Download failed!" });
     });
 
     // Convert the file to MP3
@@ -47,15 +47,15 @@ downloadRouter.get("/:videoId", async (req, res, next) => {
       convertAudio.kill();
       downloadAudio.destroy();
 
-      return res.status(400).send("Download canceled by the user");
+      return res.status(400).send({ error: "Download canceled by the user" });
     });
 
     // The file is converted
     convertAudio.on("end", () => {
-      return res.send();
+      return res.end();
     });
   } catch (err) {
-    res.status(400).send("Something went wrong");
+    res.status(400).send({ error: "Something went wrong" });
   }
 });
 

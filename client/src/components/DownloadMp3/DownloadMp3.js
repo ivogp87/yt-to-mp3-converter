@@ -20,12 +20,14 @@ const DownloadMp3 = ({ videoId }) => {
     };
   }, []);
 
-  const handleDownloadClick = async () => {
+  const handleDownload = async () => {
+    const BASE_API_URL = process.env.REACT_APP_API_URL;
+
     setIsDownloading(true);
     setDownloadStatus('Starting download');
 
     try {
-      const response = await fetch(`http://localhost:3001/api/download/${videoId}`);
+      const response = await fetch(`${BASE_API_URL}/download/${videoId}`);
 
       if (!response.ok) {
         throw new Error('Download failed');
@@ -61,7 +63,7 @@ const DownloadMp3 = ({ videoId }) => {
 
   return (
     <>
-      <Button onClick={handleDownloadClick} icon={faFileDownload}>
+      <Button onClick={handleDownload} icon={faFileDownload}>
         Download Mp3
       </Button>
       {downloadStatus && (
