@@ -1,44 +1,21 @@
-// Formats number-like string (or number). Returns string!
-// Formats a numbers bigger than 999 like this: 1000 -> 1k; 150 000 -> 150K, etc
+// Formats number-like string. Returns string!
+// Example (argument -> result): '500' -> '500'; '1200' -> '1K'; '150600' -> '150K'; '5373000' -> '5.3M'
 const formatStrAsNumber = (str) => {
-  // Return the string if the input is not a number or number-like string
-  if (Number.isNaN(Number(str))) return str;
-
   // Convert the string to number
   const num = Number(str);
 
-  // Numbers less than 1000 - return just the number as a string
-  if (num < 1000) return num.toString();
+  // Return the string if the input can't be converted to number OR if the number is less than 1000
+  if (Number.isNaN(num) || num < 1000) return str;
 
-  // If the number is equal to or bigger than 1000:
-
-  // Format the number
-  const formattedNum = num.toLocaleString('en-US');
-
-  // Convert the formatted number into array
-  const numArr = formattedNum.split(',');
-
-  // Determine what sign to put after the number (K, M, B)
-  let numberSign;
-  switch (numArr.length) {
-    case 2:
-      numberSign = 'K';
-      break;
-    case 3:
-      numberSign = 'M';
-      break;
-    case 4:
-      numberSign = 'B';
-      break;
-    default:
-      numberSign = '';
+  if (num >= 1000000000) {
+    return `${(num / 1000000000).toFixed(1).replace(/\.0$/, '')} B`;
   }
 
-  // Show fractional part only for numbers bigger than 1M
-  const decimalPart = num > 1000000 && numArr[1].charAt(0) !== '0' ? `.${numArr[1].charAt(0)}` : '';
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1).replace(/\.0$/, '')} M`;
+  }
 
-  // Return the formatted number
-  return `${numArr[0] + decimalPart} ${numberSign}`;
+  return `${Math.trunc(num / 1000).toString()} K`;
 };
 
 export default formatStrAsNumber;
