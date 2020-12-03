@@ -9,15 +9,19 @@ const useYouTubeData = (getYouTubeData) => {
     const fetchData = async () => {
       const data = await getYouTubeData();
 
-      // Error or empty data
+      // Error or no data (sometimes YouTube's API return empty array)
       if (data instanceof Error || !data.items.length) {
         setError(true);
-        setIsLoading(false);
       } else {
         // Everything's OK
-        setYouTubeData(data.items);
-        setIsLoading(false);
+        // Filter out live videos
+        const videos = data.items.filter((video) => video.snippet.liveBroadcastContent === 'none');
+
+        setYouTubeData(videos);
+        setError(false);
       }
+
+      setIsLoading(false);
     };
 
     fetchData();
