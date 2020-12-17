@@ -1,18 +1,14 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PopularVideos.module.scss';
-import youTube from '../../apis/youTube';
-import useYouTubeData from '../../hooks/useYouTubeData';
+import { popularVideosEndpoint } from '../../apis/youTube';
+import useFetchYouTubeData from '../../hooks/useFetchYouTubeData';
 import ComponentStatus from '../ComponentStatus';
 import VideoPreview from '../VideoPreview';
 
 const PopularVideos = ({ videoCategoryId, maxResults }) => {
-  const getPopularVideos = useCallback(
-    () => youTube.getPopularVideos(videoCategoryId, maxResults),
-    [videoCategoryId, maxResults]
-  );
-
-  const [isLoading, error, youTubeData] = useYouTubeData(getPopularVideos);
+  const apiUrl = popularVideosEndpoint(videoCategoryId, maxResults);
+  const [isLoading, error, youTubeData] = useFetchYouTubeData(apiUrl);
 
   // Loading
   if (isLoading) return <ComponentStatus status="loading" message="Loading..." />;
@@ -24,17 +20,17 @@ const PopularVideos = ({ videoCategoryId, maxResults }) => {
   // Return the popular videos
   return (
     <div className={styles.popularVideos}>
-      {youTubeData.map((video) => {
+      {youTubeData.map(({ id, title, thumbnail, channelTitle, publishedAt, viewCount }) => {
         return (
-          <div className={styles.video} key={video.id}>
+          <div className={styles.video} key={id}>
             <VideoPreview
               direction="column"
-              id={video.id}
-              title={video.snippet.title}
-              thumbnail={video.snippet.thumbnails.medium.url}
-              channelTitle={video.snippet.channelTitle}
-              publishTime={video.snippet.publishedAt}
-              views={video.statistics.viewCount}
+              id={id}
+              title={title}
+              thumbnail={thumbnail}
+              channelTitle={channelTitle}
+              publishedAt={publishedAt}
+              views={viewCount}
             />
           </div>
         );

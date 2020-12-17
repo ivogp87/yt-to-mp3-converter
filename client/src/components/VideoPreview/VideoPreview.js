@@ -13,7 +13,7 @@ const VideoPreview = ({
   thumbnail,
   description,
   channelTitle,
-  publishTime,
+  publishedAt,
   views,
 }) => {
   // Display as a row or column
@@ -36,7 +36,7 @@ const VideoPreview = ({
               &nbsp; views
             </p>
           )}
-          <p className={styles.text}>{formatStrAsDate(publishTime)}</p>
+          <p className={styles.text}>{formatStrAsDate(publishedAt)}</p>
         </div>
         {description && (
           <div className={styles.description}>
@@ -60,7 +60,7 @@ VideoPreview.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   description: PropTypes.string,
   channelTitle: PropTypes.string.isRequired,
-  publishTime: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
   views: PropTypes.string,
 };
 

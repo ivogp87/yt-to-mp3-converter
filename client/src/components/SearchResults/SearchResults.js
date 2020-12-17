@@ -1,20 +1,15 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './SearchResults.module.scss';
-import youTube from '../../apis/youTube';
-import useYouTubeData from '../../hooks/useYouTubeData';
+import { searchForVideosEndpoint } from '../../apis/youTube';
+import useFetchYouTubeData from '../../hooks/useFetchYouTubeData';
 import ComponentStatus from '../ComponentStatus';
 import VideoPreview from '../VideoPreview';
 
 const SearchResults = ({ searchTerm, maxResults }) => {
-  const findVideos = useCallback(() => youTube.searchByKeyword(searchTerm, maxResults), [
-    searchTerm,
-    maxResults,
-  ]);
+  const apiUrl = searchForVideosEndpoint(searchTerm, maxResults);
+  const [isLoading, error, youTubeData] = useFetchYouTubeData(apiUrl);
 
-  const [isLoading, error, youTubeData] = useYouTubeData(findVideos);
-
-  // Loading
   if (isLoading) {
     return <ComponentStatus status="loading" message="Loading" />;
   }
@@ -31,17 +26,17 @@ const SearchResults = ({ searchTerm, maxResults }) => {
 
   return (
     <>
-      {youTubeData.map((searchResult) => {
+      {youTubeData.map(({ id, title, thumbnail, description, channelTitle, publishedAt }) => {
         return (
-          <div className={styles.searchResult} key={searchResult.id.videoId}>
+          <div className={styles.searchResult} key={id}>
             <VideoPreview
               direction="row"
-              id={searchResult.id.videoId}
-              title={searchResult.snippet.title}
-              thumbnail={searchResult.snippet.thumbnails.medium.url}
-              description={searchResult.snippet.description}
-              channelTitle={searchResult.snippet.channelTitle}
-              publishTime={searchResult.snippet.publishTime}
+              id={id}
+              title={title}
+              thumbnail={thumbnail}
+              description={description}
+              channelTitle={channelTitle}
+              publishedAt={publishedAt}
             />
           </div>
         );
