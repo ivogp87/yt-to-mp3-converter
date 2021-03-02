@@ -1,32 +1,41 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import '../../styles/index.scss'; // GLOBAL STYLES! Normalize, additional reset, etc!
-import styles from './App.module.scss';
-import ScrollToTop from '../ScrollToTop';
-import NavBar from '../NavBar';
+import React, { useState } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
+
+import '../../styles/index.scss';
+import '../../helpers/iconLibrary';
+
+import MainLayout from '../MainLayout';
+
 import Home from '../../pages/Home';
 import Search from '../../pages/Search';
 import Download from '../../pages/Download';
 import Error404 from '../../pages/Error404';
-import Footer from '../Footer';
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const history = useHistory();
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value.trim());
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm) {
+      const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/gi, '+');
+      history.push(`/search?term=${encodedTerm}`);
+    }
+  };
+
   return (
-    <div className={styles.app}>
-      <BrowserRouter>
-        <ScrollToTop />
-        <NavBar />
-        <div className={styles.mainContent}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/download/:videoId" component={Download} />
-            <Route path="/*" component={Error404} />
-          </Switch>
-        </div>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <MainLayout searchTerm={searchTerm} onSubmit={handleSubmit} onChange={handleChange}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/search" component={Search} />
+        <Route exact path="/download/:videoId" component={Download} />
+        <Route path="/*" component={Error404} />
+      </Switch>
+    </MainLayout>
   );
 };
 
