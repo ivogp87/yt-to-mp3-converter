@@ -1,64 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './SearchBar.module.scss';
-import parseQueryString from '../../helpers/parseQueryString';
-import Button from '../Button';
+import IconButton from '../IconButton';
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [placeholder, setPlaceholder] = useState('Search here');
-
-  // Keep the searchTerm in sync with the url
-  const { search } = useLocation();
-  useEffect(() => {
-    // Check if there is search term in the query string and update the state
-    const queryString = parseQueryString(search);
-    if (queryString) {
-      const decodedTerm = decodeURIComponent(queryString).replace(/\+/gi, ' ');
-      setSearchTerm(decodedTerm);
-    }
-  }, [search]);
-
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const { push } = useHistory();
-
-  // Navigate to search results page
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (searchTerm === '') {
-      setPlaceholder('Please enter search term');
-    } else {
-      // Url encode the search term
-      const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/gi, '+');
-
-      // Redirect to the search results
-      push(`/search?term=${encodedTerm}`);
-    }
-  };
-
+const SearchBar = ({ searchTerm, onChange, onSubmit, className }) => {
   return (
-    <form className={styles.searchBar} onSubmit={handleSubmit}>
+    <form className={classNames(styles.searchBar, className)} onSubmit={onSubmit}>
       <input
-        className={styles.searchForm}
-        onChange={handleInputChange}
+        className={styles.searchInput}
+        onChange={onChange}
         type="text"
         value={searchTerm}
-        placeholder={placeholder}
+        placeholder="Search"
+        required
       />
-      <Button
-        type="submit"
-        icon={faSearch}
-        variant="text"
-        size="small"
-        extraClass={styles.searchBtn}
-      />
+      <IconButton type="submit" icon="search" color="secondary" />
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+SearchBar.defaultProps = {
+  className: '',
 };
 
 export default SearchBar;

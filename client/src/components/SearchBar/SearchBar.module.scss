@@ -3,32 +3,17 @@
 .searchBar {
   width: 100%;
   display: flex;
-  justify-content: center;
-
-  .searchBtn {
-    border-radius: 0 5px 5px 0;
-    border-left: 2px solid $bg-secondary;
-  
-    &:hover {
-      border-left: 2px solid $bg-dark;
-    }
-  }
+  border: 2px solid $bg-secondary;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.searchForm,
-.searchBtn {
-  height: 35px;
-  background: $bg-primary;
-  border: 0;
-}
-
-.searchForm {
+.searchInput {
   width: 100%;
+  align-self: stretch;
+  padding: 4px 8px;
   color: $text-primary;
   font-size: 1.6rem;
-  padding: 5px 10px;
-  border-radius: 5px 0 0 5px;
-  outline-color: $bg-secondary;
+  outline: none;
+  border: none;
 }
-
-
