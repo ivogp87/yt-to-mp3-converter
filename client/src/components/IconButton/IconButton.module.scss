@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.iconButton {
+  font-family: $font-primary;
+  font-size: 1.6rem;
+  padding: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.iconButton-primary {
+  background: $bg-secondary;
+  color: $text-secondary;
+}
+
+.iconButton-secondary {
+  background: $bg-primary;
+  color: $text-dark;
+
+  &:hover {
+    color: $text-light;
+  }
+}
