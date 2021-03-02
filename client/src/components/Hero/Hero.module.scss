@@ -1,0 +1,41 @@
+@import '../../styles/variables';
+
+.hero {
+  background: $bg-secondary;
+  color: $text-secondary;
+  padding-bottom: 50px;
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.8rem;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .heroSearchBar {
+    max-width: 500px;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .hero {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+    }
+  }
+}
