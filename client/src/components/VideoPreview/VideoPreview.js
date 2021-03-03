@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import formatStrAsNumber from '../../helpers/formatStrAsNumber';
-import formatStrAsDate from '../../helpers/formatStrAsDate';
+import classNames from 'classnames';
+import formatNumber from '../../helpers/formatNumber';
+import formatDate from '../../helpers/formatDate';
 import decodeHtmlEntities from '../../helpers/decodeHtmlEntities';
 import styles from './VideoPreview.module.scss';
 
 const VideoPreview = ({
   direction,
+  className,
   id,
   title,
   thumbnail,
@@ -16,11 +18,10 @@ const VideoPreview = ({
   publishedAt,
   views,
 }) => {
-  // Display as a row or column
-  const className = direction === 'row' ? styles.videoPreviewRow : styles.videoPreviewColumn;
+  const mainClassNames = direction === 'row' ? styles.videoPreviewRow : styles.videoPreviewColumn;
 
   return (
-    <Link className={className} to={`/download/${id}`} title={title}>
+    <Link className={classNames(mainClassNames, className)} to={`/download/${id}`} title={title}>
       <div className={styles.thumbnail}>
         <img className={styles.img} src={thumbnail} alt={`${title} video thumbnail`} />
       </div>
@@ -32,11 +33,11 @@ const VideoPreview = ({
           </p>
           {views && (
             <p className={styles.text}>
-              {formatStrAsNumber(views)}
+              {formatNumber(views)}
               &nbsp; views
             </p>
           )}
-          <p className={styles.text}>{formatStrAsDate(publishedAt)}</p>
+          <p className={styles.text}>{formatDate(publishedAt)}</p>
         </div>
         {description && (
           <div className={styles.description}>
@@ -51,10 +52,12 @@ const VideoPreview = ({
 VideoPreview.defaultProps = {
   description: null,
   views: null,
+  className: null,
 };
 
 VideoPreview.propTypes = {
   direction: PropTypes.oneOf(['row', 'column']).isRequired,
+  className: PropTypes.string,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,

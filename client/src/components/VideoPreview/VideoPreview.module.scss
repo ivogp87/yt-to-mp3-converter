@@ -21,6 +21,7 @@
   font-size: 1.6rem;
   font-weight: 600;
   max-height: 5rem;
+  line-height: 1.2;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -44,7 +45,11 @@
 }
 
 .description {
-  margin-top: 20px;
+  margin-top: 10px;
+  word-break: break-word;
+  line-height: 1.2;
+  max-height: 80px;
+  overflow: hidden;
 
   .text {
     font-size: 1.6rem;
