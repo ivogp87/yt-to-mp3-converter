@@ -1,32 +1,38 @@
 import React from 'react';
-import styles from './Home.module.scss';
-import Container from '../../components/Container';
-import SearchBar from '../../components/SearchBar';
-import PopularVideos from '../../components/PopularVideos';
+import usePromise from 'react-fetch-hook/usePromise';
+import { getPopularVideos } from '../../apis/youTube/youTube';
+import VideoGrid from '../../components/VideoGrid';
+import Loader from '../../components/Loader';
+import ErrorMessage from '../../components/ErrorMessage';
 
 const Home = () => {
+  const { isLoading, data = { items: null }, error = {} } = usePromise(() => getPopularVideos(10), [
+    10,
+  ]);
+
+  if (error.message || (data.items && data.items.length === 0)) {
+    const message =
+      error.message === 'Network Error'
+        ? 'Network Error. Please refresh the page and try again'
+        : 'No popular videos found.';
+    return (
+      <ErrorMessage position="center">
+        <p>{message}</p>
+      </ErrorMessage>
+    );
+  }
+
+  if (isLoading) return <Loader position="center" />;
+
   return (
-    <>
-      <header className={styles.mainHeader}>
-        <Container>
-          <div className={styles.headerInner}>
-            <h1 className={styles.title}>YouTube To MP3 Converter</h1>
-            <p className={styles.text}>Start by searching for videos.</p>
-            <div className={styles.searchContainer}>
-              <SearchBar />
-            </div>
-          </div>
-        </Container>
-      </header>
-      <main>
-        <Container>
-          <div className={styles.popularVideosContainer}>
-            <h2>Popular Music Videos</h2>
-            <PopularVideos />
-          </div>
-        </Container>
-      </main>
-    </>
+    <main>
+      <VideoGrid
+        title="Popular Music Videos"
+        videos={data.items}
+        showViews
+        showDescription={false}
+      />
+    </main>
   );
 };
 
