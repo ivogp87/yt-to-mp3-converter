@@ -1,0 +1,12 @@
+.default {
+  display: inline-block;
+  color: inherit;
+}
+
+.center {
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

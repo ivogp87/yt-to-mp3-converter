@@ -1,7 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
-  faCircleNotch,
   faDownload,
   faFileDownload,
   faTimes,
@@ -17,10 +16,10 @@ import {
   faCalendarWeek,
   faChevronUp,
   faChevronDown,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default library.add(
-  faCircleNotch,
   faDownload,
   faFileDownload,
   faTimes,
@@ -35,5 +34,6 @@ export default library.add(
   faEye,
   faCalendarWeek,
   faChevronUp,
-  faChevronDown
+  faChevronDown,
+  faSpinner
 );

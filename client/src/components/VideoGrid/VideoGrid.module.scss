@@ -1,0 +1,36 @@
+.title {
+  margin-top: 0;
+}
+
+.videoGrid {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -10px -20px;
+
+  .videoGridItem {
+    flex-basis: 25%;
+    padding: 0 10px 20px;
+  }
+
+  @media only screen and (max-width: 1150px) {
+    .videoGridItem {
+      flex-basis: 33.3%;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .videoGridItem {
+      flex-basis: 50%;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    flex-flow: column;
+    align-items: center;
+
+    .videoGridItem {
+      flex-basis: 100%;
+      width: 100%;
+    }
+  }
+}
