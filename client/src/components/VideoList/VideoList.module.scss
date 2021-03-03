@@ -1,0 +1,17 @@
+.title {
+  margin-top: 0;
+}
+
+section {
+  .videoListItem {
+    margin-bottom: 20px;
+
+    @media only screen and (max-width: 600px) {
+      margin-bottom: 10px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
