@@ -1,86 +1,68 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { saveAs } from 'file-saver';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileDownload, faSpinner, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './DownloadMp3.module.scss';
 import Button from '../Button';
+import IconButton from '../IconButton';
+import Loader from '../Loader';
+import ErrorMessage from '../ErrorMessage';
 
-const DownloadMp3 = ({ videoId }) => {
-  const [downloadStatus, setDownloadStatus] = useState('');
-  const [isDownloading, setIsDownloading] = useState(false);
+const DownloadMp3 = ({ onDownload, isDownloadDisabled, downloadStatus, className }) => {
+  const [showDownloadStatus, setShowDownloadStatus] = useState(true);
 
-  const isMounted = useRef(false);
+  const handleHideStatus = () => {
+    setShowDownloadStatus(false);
+  };
 
   useEffect(() => {
-    isMounted.current = true;
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  const handleDownload = async () => {
-    const BASE_API_URL = process.env.REACT_APP_API_URL;
-
-    setIsDownloading(true);
-    setDownloadStatus('Starting download');
-
-    try {
-      const response = await fetch(`${BASE_API_URL}/download/${videoId}`);
-
-      if (!response.ok) {
-        throw new Error('Download failed');
-      }
-
-      const filename = response.headers
-        .get('content-disposition')
-        .split('=')[1]
-        .replace(/"/gi, '')
-        .trim();
-
-      if (isMounted.current) setDownloadStatus(`Downloading ${filename}`);
-
-      const file = await response.blob();
-      saveAs(file, filename);
-
-      if (isMounted.current) {
-        setIsDownloading(false);
-        setDownloadStatus(`Download complete. Filename: ${filename}`);
-      }
-    } catch (error) {
-      if (isMounted.current) {
-        setIsDownloading(false);
-        setDownloadStatus('Download failed');
-      }
-    }
-  };
-
-  // Close the download status message
-  const handleClose = () => {
-    setDownloadStatus('');
-  };
+    setShowDownloadStatus(true);
+  }, [downloadStatus]);
 
   return (
-    <>
-      <Button onClick={handleDownload} icon={faFileDownload}>
+    <div className={className}>
+      <Button
+        type="button"
+        onClick={onDownload}
+        icon="download"
+        color="primary"
+        disabled={isDownloadDisabled}
+      >
         Download Mp3
       </Button>
-      {downloadStatus && (
+      {showDownloadStatus && downloadStatus !== 'idle' && (
         <div className={styles.downloadStatus}>
-          {isDownloading && (
-            <FontAwesomeIcon className={styles.loadingIcon} icon={faSpinner} size="lg" spin />
+          {downloadStatus === 'downloading' && (
+            <>
+              <Loader />
+              <span className={styles.message}>&nbsp; Downloading...</span>
+            </>
           )}
-          <p>{downloadStatus}</p>
-          <Button onClick={handleClose} icon={faTimes} variant="text" size="small" />
+          {downloadStatus === 'error' && (
+            <span className={styles.message}>
+              <ErrorMessage>Download failed</ErrorMessage>
+            </span>
+          )}
+          <IconButton
+            type="button"
+            title="hide message"
+            onClick={handleHideStatus}
+            icon="times"
+            color="secondary"
+          />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
 DownloadMp3.propTypes = {
-  videoId: PropTypes.string.isRequired,
+  onDownload: PropTypes.func.isRequired,
+  isDownloadDisabled: PropTypes.bool.isRequired,
+  downloadStatus: PropTypes.oneOf(['idle', 'downloading', 'error']).isRequired,
+  className: PropTypes.string,
+};
+
+DownloadMp3.defaultProps = {
+  className: '',
 };
 
 export default DownloadMp3;

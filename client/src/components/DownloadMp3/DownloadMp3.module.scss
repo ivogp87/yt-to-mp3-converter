@@ -5,14 +5,10 @@
   flex-flow: row wrap;
   align-items: center;
   margin-top: 10px;
-  padding-left: 10px;
+  padding: 5px 0 5px 10px;
   border: 1px solid $bg-dark;
-
-  p {
-    flex: 1;
-  }
 }
 
-.loadingIcon {
-  margin-right: 10px;
+.message {
+  flex: 1;
 }
