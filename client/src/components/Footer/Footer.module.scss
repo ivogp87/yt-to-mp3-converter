@@ -3,15 +3,12 @@
 .footer {
   color: $text-secondary;
   background: $bg-secondary;
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
-.socialMediaProfiles {
+.footerContent {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-
-  > * {
-    padding: 10px 20px;
-  }
+  align-items: center;
 }
