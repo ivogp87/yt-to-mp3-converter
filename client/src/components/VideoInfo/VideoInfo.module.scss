@@ -1,75 +1,56 @@
 @import '../../styles/variables';
 
-// Video tags
-
-.tags {
-  word-break: break-all;
-}
-
-.tag {
-  margin-right: 20px;
-
-  &:last-child {
-    margin-left: 0;
-  }
-
-  &::before {
-    content: '#';
-  }
-}
-
-.title {
+.videoTitle {
   font-size: 1.8rem;
   font-weight: 600;
+  margin-top: 0;
 }
-
-// Video statistics
 
 .videoStats {
   display: flex;
   flex-flow: row wrap;
-}
+  margin-bottom: 10px;
 
-.videoStatsPrimary {
-  flex: 1 0 200px;
+  span {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .videoStatsPrimary,
 .videoStatsSecondary {
   display: flex;
-  flex-flow: row wrap;
-  > * {
-    margin-right: 10px;
-  }
-
-  > *:last-child {
-    margin-right: 0;
-  }
+  flex-wrap: wrap;
 }
 
-// Channel title
-.channelTitle {
-  display: block;
-  margin: 10px 0 20px;
-  color: $text-primary;
-  font-weight: 600;
+.videoStatsPrimary {
+  flex: 1;
+  margin-right: 10px;
+}
 
-  .icon {
-    margin-right: 10px;
-  }
+.icon {
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.channelOwner {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 600px) {
-  .videoStats {
-    flex-flow: column;
-  }
-
-  .title {
+  .videoTitle {
     font-size: 1.6rem;
   }
 
-  .tag,
-  .channelTitle {
+  .channelOwner {
     font-size: 1.4rem;
   }
 
