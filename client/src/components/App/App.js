@@ -16,7 +16,7 @@ const App = () => {
   const history = useHistory();
 
   const handleChange = (e) => {
-    setSearchTerm(e.target.value.trim());
+    setSearchTerm(e.target.value);
   };
 
   const handleSubmit = (e) => {
