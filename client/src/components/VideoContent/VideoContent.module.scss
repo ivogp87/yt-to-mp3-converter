@@ -1,0 +1,27 @@
+.videoContent {
+  display: flex;
+  flex-flow: row wrap;
+
+  .marginBottom {
+    margin-bottom: 20px;
+  }
+}
+
+.mainContent {
+  flex: 70%;
+}
+
+.relatedVideos {
+  flex: 30%;
+  padding-left: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .videoContent {
+    flex-flow: column;
+  }
+
+  .relatedVideos {
+    padding-left: 0;
+  }
+}
