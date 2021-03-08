@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 import '../../styles/index.scss';
 import '../../helpers/iconLibrary';
 
 import MainLayout from '../MainLayout';
+import ErrorMessage from '../ErrorMessage';
 
 import Home from '../../pages/Home';
 import Search from '../../pages/Search';
 import Download from '../../pages/Download';
-import Error404 from '../../pages/Error404';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,10 +30,21 @@ const App = () => {
   return (
     <MainLayout searchTerm={searchTerm} onSubmit={handleSubmit} onChange={handleChange}>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/download/:videoId" component={Download} />
-        <Route path="/*" component={Error404} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/search">
+          <Search />
+        </Route>
+        <Route exact path="/download/:videoId">
+          <Download />
+        </Route>
+        <Route path="/download">
+          <Redirect to="/" />
+        </Route>
+        <Route path="/*">
+          <ErrorMessage position="center">Page not found.</ErrorMessage>
+        </Route>
       </Switch>
     </MainLayout>
   );
