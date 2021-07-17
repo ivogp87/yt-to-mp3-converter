@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "fluent-ffmpeg": "^2.1.2",
     "slugify": "^1.4.6",
-    "ytdl-core": "^4.0.5"
+    "ytdl-core": "^4.8.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
