@@ -21,7 +21,8 @@
     "react-fetch-hook": "^1.8.5",
     "react-linkify": "^1.0.0-alpha",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.4"
+    "react-scripts": "3.4.4",
+    "react-toastify": "^7.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './MainLayout.module.scss';
 import ScrollToTop from '../ScrollToTop';
 import Container from '../Container';
@@ -26,6 +28,17 @@ const MainLayout = ({ children, searchTerm, onSubmit, onChange }) => {
         <Container>{children}</Container>
       </section>
       <Footer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={false}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

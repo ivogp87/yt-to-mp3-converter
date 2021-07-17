@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { useParams } from 'react-router-dom';
 import usePromise from 'react-fetch-hook/usePromise';
+import { toast } from 'react-toastify';
 import { getRelatedVideos, getVideoDetails } from '../../apis/youTube/youTube';
 import downloadMp3 from '../../apis/backend/backend';
 import VideoContent from '../../components/VideoContent';
@@ -22,8 +23,7 @@ const Download = () => {
     [videoId]
   );
 
-  const [downloadStatus, setDownloadStatus] = useState('idle');
-  const [isDownloadBtnDisabled, setIsDownloadBtnDisabled] = useState(false);
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState(false);
 
   const isMounted = useRef(false);
   useEffect(() => {
@@ -35,23 +35,33 @@ const Download = () => {
   });
 
   const handleDownload = async () => {
-    setDownloadStatus('downloading');
-    setIsDownloadBtnDisabled(true);
+    setIsDownloadDisabled(true);
+    const toastId = toast.info(`Downloading ${videoDetails.items[0].title}`);
     try {
       const { data, headers } = await downloadMp3(videoId);
       const filename = headers['content-disposition'].split('=')[1].replace(/"/gi, '').trim();
       saveAs(data, filename);
 
-      if (isMounted.current) setDownloadStatus('idle');
+      toast.update(toastId, {
+        render: `Download complete: ${videoDetails.items[0].title}`,
+        type: toast.TYPE.SUCCESS,
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
     } catch (error) {
-      if (isMounted.current) setDownloadStatus('error');
+      toast.update(toastId, {
+        render: `Downloading failed: ${videoDetails.items[0].title}`,
+        type: toast.TYPE.ERROR,
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
     } finally {
-      if (isMounted.current) setIsDownloadBtnDisabled(false);
+      if (isMounted.current) setIsDownloadDisabled(false);
     }
   };
 
   useEffect(() => {
-    setIsDownloadBtnDisabled(false);
+    setIsDownloadDisabled(false);
   }, [videoId]);
 
   if (videoDetailsError.message) {
@@ -114,8 +124,7 @@ const Download = () => {
           : null
       }
       onDownload={handleDownload}
-      isDownloadDisabled={isDownloadBtnDisabled}
-      downloadStatus={downloadStatus}
+      isDownloadDisabled={isDownloadDisabled}
     />
   );
 };

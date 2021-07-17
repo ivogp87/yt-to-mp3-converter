@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './VideoContent.module.scss';
 import VideoPlayer from '../VideoPlayer';
-import DownloadMp3 from '../DownloadMp3';
 import VideoInfo from '../VideoInfo';
 import VideoDescription from '../VideoDescription';
 import VideoList from '../VideoList';
+import Button from '../Button';
 
 const VideoContent = ({
   videoId,
@@ -21,7 +21,6 @@ const VideoContent = ({
   relatedVideos,
   onDownload,
   isDownloadDisabled,
-  downloadStatus,
 }) => {
   return (
     <section className={styles.videoContent}>
@@ -32,12 +31,16 @@ const VideoContent = ({
           autoPlay={autoPlay}
           className={styles.marginBottom}
         />
-        <DownloadMp3
-          onDownload={onDownload}
-          isDownloadDisabled={isDownloadDisabled}
-          downloadStatus={downloadStatus}
+        <Button
+          type="button"
+          onClick={onDownload}
+          icon="download"
+          color={isDownloadDisabled ? 'secondary' : 'primary'}
+          disabled={isDownloadDisabled}
           className={styles.marginBottom}
-        />
+        >
+          Download Mp3
+        </Button>
         <VideoInfo
           videoTitle={videoTitle}
           channelTitle={channelTitle}
@@ -90,7 +93,6 @@ VideoContent.propTypes = {
   ),
   onDownload: PropTypes.func.isRequired,
   isDownloadDisabled: PropTypes.bool.isRequired,
-  downloadStatus: PropTypes.oneOf(['idle', 'downloading', 'error']).isRequired,
 };
 
 VideoContent.defaultProps = {
