@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './VideoContent.module.scss';
 import VideoPlayer from '../VideoPlayer';
 import VideoInfo from '../VideoInfo';
@@ -36,8 +37,8 @@ const VideoContent = ({
           onClick={onDownload}
           icon="download"
           color={isDownloadDisabled ? 'secondary' : 'primary'}
-          disabled={isDownloadDisabled}
-          className={styles.marginBottom}
+          disabled
+          className={classNames(styles.marginBottom, styles.downloadButton)}
         >
           Download Mp3
         </Button>

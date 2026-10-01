@@ -5,6 +5,10 @@
   .marginBottom {
     margin-bottom: 20px;
   }
+
+  .downloadButton[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 .mainContent {
